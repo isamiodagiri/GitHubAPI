@@ -1,0 +1,5 @@
+github "ReactiveX/RxSwift" ~> 5.0
+github "RxSwiftCommunity/RxAlamofire" ~> 5.3
+github "tristanhimmelman/ObjectMapper" ~> 3.5
+github "RxSwiftCommunity/RxDataSources" ~> 4.0
+github "kean/Nuke" ~> 9.0.0
