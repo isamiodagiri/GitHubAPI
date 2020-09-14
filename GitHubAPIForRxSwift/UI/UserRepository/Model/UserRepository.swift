@@ -42,8 +42,7 @@ class Repository: Mappable {
         self.repositoryName <- map["name"]
         self.language <- map["language"]
         self.description <- map["description"]
-        self.stargazersCount <- (map["stargazers_count"], TransformOf<Int, String>(fromJSON: { Int($0!) },
-                                                                             toJSON: { $0.map { String($0) } }))
+        self.stargazersCount <- map["stargazers_count"]
         self.repositoryUrl <- (map["html_url"], URLTransform())
         self.isFork <- map["fork"]
     }

@@ -28,6 +28,10 @@
 		575148BF250E412F00766015 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575148BE250E412F00766015 /* UserList.swift */; };
 		575148C1250E41CE00766015 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575148C0250E41CE00766015 /* UserRepository.swift */; };
 		575148C5250E457B00766015 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575148C4250E457B00766015 /* Nuke.framework */; };
+		57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */; };
+		57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2661250FA34F00EEA247 /* TargetedExtension.swift */; };
+		57DE2664250FA72600EEA247 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2663250FA72600EEA247 /* CircleImageView.swift */; };
+		57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2666250FA83000EEA247 /* ApiClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +82,10 @@
 		575148BE250E412F00766015 /* UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		575148C0250E41CE00766015 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		575148C4250E457B00766015 /* Nuke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nuke.framework; path = Carthage/Build/iOS/Nuke.framework; sourceTree = "<group>"; };
+		57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
+		57DE2661250FA34F00EEA247 /* TargetedExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetedExtension.swift; sourceTree = "<group>"; };
+		57DE2663250FA72600EEA247 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		57DE2666250FA83000EEA247 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +144,9 @@
 		572A9069250BD4CA002697DD /* GitHubAPIForRxSwift */ = {
 			isa = PBXGroup;
 			children = (
+				57DE2665250FA82000EEA247 /* Client */,
+				57DE2660250FA1C700EEA247 /* Common */,
+				57DE265D250F99E300EEA247 /* Extension */,
 				575148A9250E394300766015 /* UI */,
 				572A906A250BD4CA002697DD /* AppDelegate.swift */,
 				572A906C250BD4CA002697DD /* SceneDelegate.swift */,
@@ -258,6 +269,31 @@
 				575148BE250E412F00766015 /* UserList.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		57DE265D250F99E300EEA247 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */,
+				57DE2661250FA34F00EEA247 /* TargetedExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		57DE2660250FA1C700EEA247 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				57DE2663250FA72600EEA247 /* CircleImageView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		57DE2665250FA82000EEA247 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				57DE2666250FA83000EEA247 /* ApiClient.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,14 +457,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57DE2664250FA72600EEA247 /* CircleImageView.swift in Sources */,
 				572A906B250BD4CA002697DD /* AppDelegate.swift in Sources */,
 				572A906D250BD4CA002697DD /* SceneDelegate.swift in Sources */,
 				575148C1250E41CE00766015 /* UserRepository.swift in Sources */,
 				575148BD250E3C1100766015 /* UserListViewModel.swift in Sources */,
+				57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */,
+				57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */,
 				575148BB250E3C0300766015 /* UserRepositoryViewModel.swift in Sources */,
 				575148B7250E3BDD00766015 /* UserListViewController.swift in Sources */,
 				575148BF250E412F00766015 /* UserList.swift in Sources */,
 				575148B9250E3BEB00766015 /* UserRepositoryViewController.swift in Sources */,
+				57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
