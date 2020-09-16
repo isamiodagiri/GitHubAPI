@@ -92,6 +92,13 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="discriptionLabel" destination="VMQ-iv-4C7" id="hDA-Gz-v2B"/>
+                <outlet property="languageIconView" destination="D9F-gp-OKd" id="xla-Yn-7bv"/>
+                <outlet property="languageLabel" destination="xdx-0Z-flL" id="rmg-UU-5SK"/>
+                <outlet property="repositoryNameLabel" destination="WW0-BD-As8" id="HfJ-sF-WUO"/>
+                <outlet property="starCountLabel" destination="fB3-lK-HvZ" id="s2q-zE-dmE"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="157.70089285714286"/>
         </tableViewCell>
     </objects>

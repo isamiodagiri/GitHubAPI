@@ -10,15 +10,20 @@ import UIKit
 
 class RepositoryTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBOutlet weak var repositoryNameLabel: UILabel!
+    @IBOutlet weak var discriptionLabel: UILabel!
+    @IBOutlet weak var starCountLabel: UILabel!
+    @IBOutlet weak var languageIconView: UIView!
+    @IBOutlet weak var languageLabel: UILabel!
+    
+    func setup(repositoryName: String?, discription: String?,
+               starCount: String?, language: String?) {
+        
+        self.repositoryNameLabel.text = repositoryName
+        self.discriptionLabel.text = discription
+        self.starCountLabel.text = starCount
+        self.languageLabel.text = language
+        self.languageIconView.isHidden = language == nil
     }
     
 }
