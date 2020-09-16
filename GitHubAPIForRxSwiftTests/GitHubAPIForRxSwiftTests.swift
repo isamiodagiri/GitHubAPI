@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import RxSwift
 @testable import GitHubAPIForRxSwift
 
 class GitHubAPIForRxSwiftTests: XCTestCase {
@@ -30,5 +31,26 @@ class GitHubAPIForRxSwiftTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+//    func testUserListViewModel() {
+//        let disposeBag = DisposeBag()
+//        
+//        var rx_searchBarText: Observable<String> {
+//            return BehaviorSubject(value: "")
+//        }
+//        userListViewModel.rx_repositories.drive(onNext: { response in
+//            print(response)
+//        }, onCompleted: {
+//            print("Completed")
+//        }) {
+//            print("onDisposed")
+//        }.disposed(by: disposeBag)
+//    }
+    
+     func testCallForApiUserList() {
+        let disposeBag = DisposeBag()
 
+        let request = ApiRequestUserList.get(keyword: "swift")
+        ApiCliant.call(request, disposeBag, onNext: { print("サクセス：\($0)")}) { print("エラー：\($0)")}
+    }
 }
