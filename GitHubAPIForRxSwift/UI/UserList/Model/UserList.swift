@@ -9,18 +9,29 @@
 import ObjectMapper
 
 class UserList: Mappable {
-    
-    var avatarUrl: URL?
-    var userName: String?
-    var detailUrl: URL?
-    var repositoryUrl: URL?
+    var totalCount: Int?
+    var userDetail: [UserDetail]?
 
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        self.avatarUrl <- (map["avatar_url"], URLTransform())
+        self.totalCount <- map["total_count"]
+        self.userDetail <- map["items"]
+    }
+}
+
+class UserDetail: Mappable {
+    var avatarUrl: String?
+    var userName: String?
+    var detailUrl: String?
+    var repositoryUrl: String?
+
+    required init?(map: Map) {}
+    
+    func mapping(map: Map) {
+        self.avatarUrl <- map["avatar_url"]
         self.userName <- map["login"]
-        self.detailUrl <- (map["url"], URLTransform())
-        self.repositoryUrl <- (map["repos_url"], URLTransform())
+        self.detailUrl <- map["url"]
+        self.repositoryUrl <- map["repos_url"]
     }
 }

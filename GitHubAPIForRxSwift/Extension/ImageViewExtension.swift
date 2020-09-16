@@ -9,6 +9,8 @@
 import UIKit
 import Nuke
 
+extension UIImageView: TargetedExtensionCompatible {}
+
 public enum ProcessorsOption {
     case resize
     case resizeRound(radius: CGFloat)

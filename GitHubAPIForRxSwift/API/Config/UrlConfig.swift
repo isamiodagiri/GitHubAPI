@@ -9,17 +9,7 @@
 import Alamofire
 
 enum UrlConfig {
-    case userList
-
-    // MARK: Public Variables
-    var path: String {
-        switch self {
-        case .userList: return "search/users"
-        }
-    }
-
-
-    // MARK: Public Static Variables
+    
     static var baseURL = "https://api.github.com/"
 
     static var header: HTTPHeaders? {

@@ -1,5 +1,5 @@
 //
-//  DetailsViewModel.swift
+//  UserRepositoryViewModel.swift
 //  GitHubAPIForRxSwift
 //
 //  Created by Isami Odagiri on 2020/09/13.
@@ -7,3 +7,7 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
+
+class UserRepositoryViewModel {}

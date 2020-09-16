@@ -6,7 +6,7 @@
 //  Copyright © 2020 Isami Odagiri. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct TargetedExtension<Base> {
     let base: Base

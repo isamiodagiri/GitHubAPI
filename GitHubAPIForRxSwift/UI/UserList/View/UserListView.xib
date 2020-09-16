@@ -9,6 +9,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserListViewController" customModule="GitHubAPIForRxSwift" customModuleProvider="target">
             <connections>
+                <outlet property="searchBar" destination="4y8-pN-2aO" id="ugi-bp-HOS"/>
+                <outlet property="tableView" destination="7NE-pz-caP" id="hPx-wH-8cs"/>
                 <outlet property="view" destination="iN0-l3-epB" id="xoH-tq-vtK"/>
             </connections>
         </placeholder>
@@ -16,9 +18,28 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="4y8-pN-2aO">
+                    <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7NE-pz-caP">
+                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4y8-pN-2aO" secondAttribute="trailing" id="24j-Gv-J6d"/>
+                <constraint firstItem="4y8-pN-2aO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="2Nv-q0-kDv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="7NE-pz-caP" secondAttribute="bottom" id="9SM-p0-ZTr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="7NE-pz-caP" secondAttribute="trailing" id="9hB-C0-P2b"/>
+                <constraint firstItem="7NE-pz-caP" firstAttribute="top" secondItem="4y8-pN-2aO" secondAttribute="bottom" id="DX1-tG-i0F"/>
+                <constraint firstItem="4y8-pN-2aO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ora-RX-40i"/>
+                <constraint firstItem="7NE-pz-caP" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eUU-Eq-EeA"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="139" y="145"/>
+            <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
         </view>
     </objects>
 </document>
