@@ -10,7 +10,7 @@ import ObjectMapper
 
 class User: Mappable {
 
-    var avatarUrl: URL?
+    var avatarUrl: String?
     var userName: String?
     var userFullName: String?
     var followersCount: Int?
@@ -19,7 +19,7 @@ class User: Mappable {
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        self.avatarUrl <- (map["avatar_url"], URLTransform())
+        self.avatarUrl <- map["avatar_url"]
         self.userName <- map["mojombo"]
         self.userFullName <- map["name"]
         self.followersCount <- map["followers"]
@@ -32,8 +32,8 @@ class Repository: Mappable {
     var repositoryName: String?
     var language: String?
     var description: String?
-    var stargazersCount: Int?
-    var repositoryUrl: URL?
+    var stargazersCount: String?
+    var repositoryUrl: String?
     var isFork: Bool?
     
     required init?(map: Map) {}
@@ -43,7 +43,7 @@ class Repository: Mappable {
         self.language <- map["language"]
         self.description <- map["description"]
         self.stargazersCount <- map["stargazers_count"]
-        self.repositoryUrl <- (map["html_url"], URLTransform())
+        self.repositoryUrl <- map["html_url"]
         self.isFork <- map["fork"]
     }
 }
