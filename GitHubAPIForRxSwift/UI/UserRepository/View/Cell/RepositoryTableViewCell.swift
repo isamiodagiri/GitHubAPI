@@ -19,11 +19,11 @@ class RepositoryTableViewCell: UITableViewCell {
     func setup(repositoryName: String?, discription: String?,
                starCount: String?, language: String?) {
         
-        self.repositoryNameLabel.text = repositoryName
-        self.discriptionLabel.text = discription
-        self.starCountLabel.text = starCount
-        self.languageLabel.text = language
-        self.languageIconView.isHidden = language == nil
+        repositoryNameLabel.text = repositoryName
+        discriptionLabel.text = discription
+        starCountLabel.text = starCount
+        languageLabel.text = language
+        languageIconView.isHidden = language == nil
     }
     
 }

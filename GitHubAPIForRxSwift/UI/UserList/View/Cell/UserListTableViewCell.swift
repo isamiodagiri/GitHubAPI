@@ -14,8 +14,8 @@ class UserListTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     func setup(imageUrl: String?, name: String?) {
-        self.iconImageView.ex.loadUrl(imageUrl: imageUrl,
-                                      processorOption: .resizeCircle)
-        self.nameLabel.text = name
+        iconImageView.ex.loadUrl(imageUrl: imageUrl,
+                                 processorOption: .resizeCircle)
+        nameLabel.text = name
     }
 }

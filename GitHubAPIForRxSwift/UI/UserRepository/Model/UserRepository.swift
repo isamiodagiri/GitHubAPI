@@ -19,11 +19,11 @@ class User: Mappable {
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        self.avatarUrl <- map["avatar_url"]
-        self.userName <- map["login"]
-        self.userFullName <- map["name"]
-        self.followersCount <- map["followers"]
-        self.followingCount <- map["following"]
+        avatarUrl <- map["avatar_url"]
+        userName <- map["login"]
+        userFullName <- map["name"]
+        followersCount <- map["followers"]
+        followingCount <- map["following"]
     }
 }
 
@@ -39,11 +39,11 @@ class Repository: Mappable {
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        self.repositoryName <- map["name"]
-        self.language <- map["language"]
-        self.description <- map["description"]
-        self.stargazersCount <- map["stargazers_count"]
-        self.repositoryUrl <- map["html_url"]
-        self.isFork <- map["fork"]
+        repositoryName <- map["name"]
+        language <- map["language"]
+        description <- map["description"]
+        stargazersCount <- map["stargazers_count"]
+        repositoryUrl <- map["html_url"]
+        isFork <- map["fork"]
     }
 }

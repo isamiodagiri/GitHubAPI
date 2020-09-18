@@ -32,23 +32,23 @@ class UserListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupTableView()
-        self.setup()
+        setupTableView()
+        setup()
     }
     
     func setup() {
-        self.viewModel = UserListViewModel()
+        viewModel = UserListViewModel()
         
-        self.viewModel?.fetchItem(at: "swift")
+        viewModel?.fetchItem(at: "swift")
         
-        self.viewModel?.items
-            .bind(to: self.tableView.rx.items(dataSource: dataSource))
-            .disposed(by: self.disposeBag)
+        viewModel?.items
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
         
-        self.viewModel?.selected
+        viewModel?.selected
             .subscribe(onNext: {[unowned self] text in
                 self.transition(at: text)})
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
     
     func transition(at text: String?) {
@@ -76,14 +76,14 @@ extension UserListViewController: UITableViewDelegate {
     }
     
     func setupTableView() {
-        self.tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
+        tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "cell")
         
-        self.tableView.rx
+        tableView.rx
             .setDelegate(self)
             .disposed(by: disposeBag)
         
-        self.tableView.rx.itemSelected
+        tableView.rx.itemSelected
             .subscribe(onNext: { [unowned self] indexPath in
                 self.viewModel?.fecthUserName(at: indexPath)})
             .disposed(by: disposeBag)

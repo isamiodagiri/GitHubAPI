@@ -26,7 +26,7 @@ class UserRepositoryViewController: UIViewController {
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    private lazy var dataSource = UserListViewController.dataSource()
+    private lazy var dataSource = UserRepositoryViewController.dataSource()
 
     private let disposeBag = DisposeBag()
 
@@ -42,13 +42,14 @@ class UserRepositoryViewController: UIViewController {
     }
     
     func setup() {
-        self.viewModel = UserRepositoryViewModel(userName: self.userName)
+        viewModel = UserRepositoryViewModel(userName: userName)
         
-        self.viewModel?.fetchUserData()
+        viewModel?.fetchUserData()
+        viewModel?.fetchUserRepository()
         
-        self.viewModel?.items
-            .bind(to: self.tableView.rx.items(dataSource: dataSource))
-            .disposed(by: self.disposeBag)
+        viewModel?.items
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
 
     }
 }

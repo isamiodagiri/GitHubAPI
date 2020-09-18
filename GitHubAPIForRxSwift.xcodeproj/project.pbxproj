@@ -40,7 +40,9 @@
 		57DE26742511077300EEA247 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575148A5250D05D800766015 /* RxBlocking.framework */; };
 		57DE267A251183EF00EEA247 /* UrlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2679251183EF00EEA247 /* UrlConfig.swift */; };
 		57DE267D2511962F00EEA247 /* ApiRequestUserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE267C2511962F00EEA247 /* ApiRequestUserList.swift */; };
-		57DE267F25119D5F00EEA247 /* ApiBaseRequestInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE267E25119D5F00EEA247 /* ApiBaseRequestInterface.swift */; };
+		57DE267F25119D5F00EEA247 /* BaseApiRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE267E25119D5F00EEA247 /* BaseApiRequestProtocol.swift */; };
+		57DE268225130CED00EEA247 /* ApiRequestUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE268125130CED00EEA247 /* ApiRequestUserData.swift */; };
+		57DE26852513101F00EEA247 /* ApiRequestUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE26842513101F00EEA247 /* ApiRequestUserRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +104,9 @@
 		57DE26722511076500EEA247 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		57DE2679251183EF00EEA247 /* UrlConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlConfig.swift; sourceTree = "<group>"; };
 		57DE267C2511962F00EEA247 /* ApiRequestUserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestUserList.swift; sourceTree = "<group>"; };
-		57DE267E25119D5F00EEA247 /* ApiBaseRequestInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiBaseRequestInterface.swift; sourceTree = "<group>"; };
+		57DE267E25119D5F00EEA247 /* BaseApiRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiRequestProtocol.swift; sourceTree = "<group>"; };
+		57DE268125130CED00EEA247 /* ApiRequestUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestUserData.swift; sourceTree = "<group>"; };
+		57DE26842513101F00EEA247 /* ApiRequestUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestUserRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,10 +258,9 @@
 		575148AD250E3A1300766015 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				57DE26802512138100EEA247 /* Cell */,
 				575148B8250E3BEB00766015 /* UserRepositoryViewController.swift */,
 				575148B4250E3B3100766015 /* UserRepositoryView.xib */,
-				57DE266E2510293C00EEA247 /* RepositoryTableViewCell.swift */,
-				57DE266F2510293C00EEA247 /* RepositoryTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -339,12 +342,31 @@
 		57DE267B251195CE00EEA247 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				57DE267E25119D5F00EEA247 /* ApiBaseRequestInterface.swift */,
+				57DE268325130D1A00EEA247 /* Request */,
 				57DE2678251183CD00EEA247 /* Config */,
 				57DE2665250FA82000EEA247 /* Client */,
-				57DE267C2511962F00EEA247 /* ApiRequestUserList.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		57DE26802512138100EEA247 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				57DE266E2510293C00EEA247 /* RepositoryTableViewCell.swift */,
+				57DE266F2510293C00EEA247 /* RepositoryTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		57DE268325130D1A00EEA247 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				57DE267E25119D5F00EEA247 /* BaseApiRequestProtocol.swift */,
+				57DE267C2511962F00EEA247 /* ApiRequestUserList.swift */,
+				57DE268125130CED00EEA247 /* ApiRequestUserData.swift */,
+				57DE26842513101F00EEA247 /* ApiRequestUserRepository.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -538,6 +560,7 @@
 				572A906B250BD4CA002697DD /* AppDelegate.swift in Sources */,
 				572A906D250BD4CA002697DD /* SceneDelegate.swift in Sources */,
 				57DE266C2510290400EEA247 /* UserListTableViewCell.swift in Sources */,
+				57DE268225130CED00EEA247 /* ApiRequestUserData.swift in Sources */,
 				575148C1250E41CE00766015 /* UserRepository.swift in Sources */,
 				57DE267A251183EF00EEA247 /* UrlConfig.swift in Sources */,
 				575148BD250E3C1100766015 /* UserListViewModel.swift in Sources */,
@@ -549,7 +572,8 @@
 				575148BF250E412F00766015 /* UserList.swift in Sources */,
 				575148B9250E3BEB00766015 /* UserRepositoryViewController.swift in Sources */,
 				57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */,
-				57DE267F25119D5F00EEA247 /* ApiBaseRequestInterface.swift in Sources */,
+				57DE267F25119D5F00EEA247 /* BaseApiRequestProtocol.swift in Sources */,
+				57DE26852513101F00EEA247 /* ApiRequestUserRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

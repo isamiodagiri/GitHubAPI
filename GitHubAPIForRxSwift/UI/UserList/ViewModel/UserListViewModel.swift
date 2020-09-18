@@ -35,7 +35,7 @@ class UserListViewModel {
     
     func fetchItem(at text: String) {
         let request = ApiRequestUserList.get(keyword: text)
-        ApiCliant.call(request, disposeBag, onNext: { [weak self] response in
+        ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
             guard let self = self,
                 let totalCount = response.totalCount,
                 let userDetail = response.userDetail else { return }

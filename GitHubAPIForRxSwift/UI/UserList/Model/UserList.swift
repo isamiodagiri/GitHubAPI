@@ -15,8 +15,8 @@ class UserList: Mappable {
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        self.totalCount <- map["total_count"]
-        self.userDetail <- map["items"]
+        totalCount <- map["total_count"]
+        userDetail <- map["items"]
     }
 }
 
@@ -29,9 +29,9 @@ class UserDetail: Mappable {
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        self.avatarUrl <- map["avatar_url"]
-        self.userName <- map["login"]
-        self.detailUrl <- map["url"]
-        self.repositoryUrl <- map["repos_url"]
+        avatarUrl <- map["avatar_url"]
+        userName <- map["login"]
+        detailUrl <- map["url"]
+        repositoryUrl <- map["repos_url"]
     }
 }
