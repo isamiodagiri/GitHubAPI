@@ -16,41 +16,91 @@ class ApiCliant {
     private static let successRange = 200..<400
     private static let contentType = ["application/json"]
 
+    
     static func call<T, V>(_ request: T, _ disposeBag: DisposeBag,
-                           onNext: @escaping (V) -> Void, onError: @escaping (Error) -> Void)
+                           onSuccess: @escaping (V) -> Void, onError: @escaping (Error) -> Void)
         where T : BaseRequestProtocol, V == T.ResponseType, T.ResponseType : Mappable {
 
             _ = observe(request)
-                .subscribe(onSuccess: { onNext($0)},
+                .subscribe(onSuccess: { onSuccess($0)},
                            onError: { onError($0) })
                 .disposed(by: disposeBag)
     }
-
+    
     private static func observe<T, V>(_ request: T) -> Single<V>
        where T: BaseRequestProtocol, V: Mappable, T.ResponseType == V {
 
           return Single<V>.create { observer in
-                let calling = callForJson(request) { response in
-                      switch response {
-                         case .success(let result): observer(.success(result as! V))
-                         case .failure(let error): observer(.error(error))
-                      }
+            let calling = callForJson(request) { response, error  in
+                    if let response = response {
+                        observer(.success(response))
+                    }
+                    
+                    if let error = error {
+                        observer(.error(error))
+                    }
                 }
-
                 return Disposables.create() { calling.cancel() }
        }
     }
-
-    private static func callForJson<T, V>(_ request: T, completion: @escaping (ApiResult) -> Void) -> DataRequest
+    
+    private static func callForJson<T, V>(_ request: T, completion: @escaping (V?, Error?) -> Void) -> DataRequest
         where T: BaseRequestProtocol, V: Mappable, T.ResponseType == V {
 
             return customAlamofire(request).responseJSON { response in
                     switch response.result {
-                    case .success(let result): completion(.success(mappingJson(request, result as! Parameters)))
-                    case .failure(let error): completion(.failure(error))
+                    case .success(let result): completion(mappingJson(request, result), nil)
+                    case .failure(let error): completion(nil, error)
                     }
-
             }
+    }
+    
+    private static func mappingJson<T, V>(_ request: T, _ result: Any) -> V?
+        where T: BaseRequestProtocol, V: Mappable, T.ResponseType == V {
+            return Mapper<V>().map(JSONObject: result)
+    }
+    
+    static func callToArray<T, V>(_ request: T, _ disposeBag: DisposeBag,
+                           onSuccess: @escaping ([V]) -> Void, onError: @escaping (Error) -> Void)
+        where T : BaseRequestProtocol, V == T.ResponseType, T.ResponseType : Mappable {
+
+            _ = observeToArray(request)
+                .subscribe(onSuccess: { onSuccess($0)},
+                           onError: { onError($0) })
+                .disposed(by: disposeBag)
+    }
+    
+    private static func observeToArray<T, V>(_ request: T) -> Single<[V]>
+       where T: BaseRequestProtocol, V: Mappable, T.ResponseType == V {
+
+          return Single<[V]>.create { observer in
+            let calling = callForJsonToArray(request) { response, error  in
+                    if let response = response {
+                        observer(.success(response))
+                    }
+                    
+                    if let error = error {
+                        observer(.error(error))
+                    }
+                }
+                return Disposables.create() { calling.cancel() }
+       }
+    }
+
+    private static func callForJsonToArray<T, V>(_ request: T, completion: @escaping ([V]?, Error?) -> Void) -> DataRequest
+        where T: BaseRequestProtocol, V: Mappable, T.ResponseType == V {
+
+            return customAlamofire(request).responseJSON { response in
+                    switch response.result {
+                    case .success(let result): completion(mappingJsonToArray(request, result), nil)
+                    case .failure(let error): completion(nil, error)
+                    }
+            }
+    }
+    
+    private static func mappingJsonToArray<T, V>(_ request: T, _ result: Any) -> [V]?
+        where T: BaseRequestProtocol, V: Mappable, T.ResponseType == V {
+            return Mapper<V>().mapArray(JSONObject: result)
     }
 
     private static func customAlamofire<T>(_ request: T) -> DataRequest
@@ -61,20 +111,4 @@ class ApiCliant {
                 .validate(statusCode: successRange)
                 .validate(contentType: contentType)
     }
-
-    private static func mappingJson<T, V>(_ request: T, _ result: Parameters) -> V
-        where T: BaseRequestProtocol, V: Mappable, T.ResponseType == V {
-
-            return Mapper<V>().map(JSON: result)!
-    }
-}
-
-/* APIレスポンスの結果分岐
- success: ObjectMapperに対応したレスポンスモデルを返す
- failure: サーバーからのエラーログを返す
- */
-// MARK: - ResultType
-enum ApiResult {
-    case success(Mappable)
-    case failure(Error)
 }
