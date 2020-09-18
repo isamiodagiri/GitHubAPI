@@ -9,5 +9,45 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxDataSources
 
-class UserRepositoryViewModel {}
+
+struct SectionOfRepository {
+    var header: String
+    var items: [Item]
+}
+
+extension SectionOfRepository: SectionModelType {
+
+    typealias Item = Repository
+
+    init(original: SectionOfRepository, items: [SectionOfRepository.Item]) {
+        self = original
+        self.items = items
+    }
+}
+
+class UserRepositoryViewModel {
+
+    let disposeBag = DisposeBag()
+    let items = BehaviorRelay<[SectionOfUserList]>(value: [])
+    
+    var userData = PublishRelay<User>()
+    
+    var userName: String?
+
+    init(userName: String?) {
+        self.userName = userName
+    }
+
+    func fetchUserData() {
+        
+        let request = ApiRequestUserRepository.path(userName: self.userName ?? "")//ApiRequestUserData.path(userName: self.userName ?? "")
+        ApiCliant.call(request, disposeBag, onNext: { [weak self] response in
+            print(response)
+//            self?.userData.accept(response)
+        }) { error in
+            print("エラー：\(error)")
+        }
+    }
+}

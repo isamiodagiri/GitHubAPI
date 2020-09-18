@@ -13,15 +13,15 @@ import RxDataSources
 
 class UserRepositoryViewController: UIViewController {
 
-    static func instance() -> UserRepositoryViewController {
+    static func instance(userName: String?) -> UserRepositoryViewController {
         let vc = UserRepositoryViewController()
-        vc.detailUrl = ""
-        vc.repositoryUrl = ""
+        vc.userName = userName
         return vc
     }
     
     @IBOutlet weak var userFullNameLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userIconImageView: UIImageView!
     @IBOutlet weak var followersCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -32,20 +32,19 @@ class UserRepositoryViewController: UIViewController {
 
     private var viewModel: UserRepositoryViewModel?
     
-    private var detailUrl: String?
-    private var repositoryUrl: String?
+    private var userName: String?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        setup()
+        self.setupTableView()
+        self.setup()
     }
     
     func setup() {
-        self.viewModel = UserRepositoryViewModel()
+        self.viewModel = UserRepositoryViewModel(userName: self.userName)
         
-        self.viewModel?.fetchItem(at: "swift")
+        self.viewModel?.fetchUserData()
         
         self.viewModel?.items
             .bind(to: self.tableView.rx.items(dataSource: dataSource))

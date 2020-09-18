@@ -20,7 +20,7 @@ class User: Mappable {
     
     func mapping(map: Map) {
         self.avatarUrl <- map["avatar_url"]
-        self.userName <- map["mojombo"]
+        self.userName <- map["login"]
         self.userFullName <- map["name"]
         self.followersCount <- map["followers"]
         self.followingCount <- map["following"]

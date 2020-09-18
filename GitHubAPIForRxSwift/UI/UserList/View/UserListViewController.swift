@@ -32,8 +32,8 @@ class UserListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        setup()
+        self.setupTableView()
+        self.setup()
     }
     
     func setup() {
@@ -44,7 +44,16 @@ class UserListViewController: UIViewController {
         self.viewModel?.items
             .bind(to: self.tableView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
-
+        
+        self.viewModel?.selected
+            .subscribe(onNext: {[unowned self] text in
+                self.transition(at: text)})
+            .disposed(by: self.disposeBag)
+    }
+    
+    func transition(at text: String?) {
+        let vc = UserRepositoryViewController.instance(userName: text)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -67,9 +76,16 @@ extension UserListViewController: UITableViewDelegate {
     }
     
     func setupTableView() {
-        tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
+        self.tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "cell")
-        tableView.rx.setDelegate(self)
+        
+        self.tableView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        self.tableView.rx.itemSelected
+            .subscribe(onNext: { [unowned self] indexPath in
+                self.viewModel?.fecthUserName(at: indexPath)})
             .disposed(by: disposeBag)
     }
 }
