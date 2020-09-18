@@ -9,7 +9,6 @@
 import Alamofire
 import ObjectMapper
 
-// MARK: - Request
 enum ApiRequestUserList: BaseRequestProtocol {
     
     typealias ResponseType = UserList
@@ -36,5 +35,4 @@ enum ApiRequestUserList: BaseRequestProtocol {
             ]
         }
     }
-
 }

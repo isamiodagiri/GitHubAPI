@@ -6,4 +6,29 @@
 //  Copyright © 2020 Isami Odagiri. All rights reserved.
 //
 
-import Foundation
+import Alamofire
+import ObjectMapper
+
+enum ApiRequestUserData: BaseRequestProtocol {
+    
+    typealias ResponseType = User
+
+    case path(userName: String)
+
+    var method: HTTPMethod {
+        switch self {
+        case .path: return .get
+        }
+    }
+
+    var path: String {
+        switch self {
+        case .path(let userName):
+            return "users/\(userName)"
+        }
+    }
+
+    var parameters: Parameters? {
+        return [:]
+    }
+}
