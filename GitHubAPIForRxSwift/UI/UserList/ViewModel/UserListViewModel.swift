@@ -29,7 +29,8 @@ extension SectionOfUserList: SectionModelType {
 
 class UserListViewModel {
 
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
+
     let items = BehaviorSubject<[SectionOfUserList]>(value: [])
     let selected = PublishSubject<String?>()
     

@@ -29,12 +29,13 @@ extension SectionOfRepository: SectionModelType {
 
 class UserRepositoryViewModel {
 
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
+
     let items = BehaviorSubject<[SectionOfRepository]>(value: [])
     let userData = PublishSubject<User>()
     let selected = PublishSubject<String?>()
 
-    var userName: String?
+    private var userName: String?
 
     init(userName: String?) {
         self.userName = userName

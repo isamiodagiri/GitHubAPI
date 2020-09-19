@@ -13,8 +13,8 @@ import RxDataSources
 
 class UserListViewController: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak private var searchBar: UISearchBar!
+    @IBOutlet weak private var tableView: UITableView!
 
     private let disposeBag = DisposeBag()
     
@@ -33,10 +33,10 @@ class UserListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        setup()
+        setupViewModel()
     }
     
-    func setup() {
+    private func setupViewModel() {
         viewModel = UserListViewModel()
         
         viewModel?.fetchItem(at: "swift")
@@ -52,7 +52,7 @@ class UserListViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func transitionUserRepositoryView(name userName: String?) {
+    private func transitionUserRepositoryView(name userName: String?) {
         let vc = UserRepositoryViewController.instance(at: userName)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -76,7 +76,7 @@ extension UserListViewController: UITableViewDelegate {
         })
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "cell")
         

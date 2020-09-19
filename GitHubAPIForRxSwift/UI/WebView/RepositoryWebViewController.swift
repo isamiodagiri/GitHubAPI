@@ -20,14 +20,14 @@ class RepositoryWebViewController: UIViewController {
         return vc
     }
     
-    @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var backButton: UIBarButtonItem!
-    @IBOutlet weak var forwardButton: UIBarButtonItem!
-    @IBOutlet weak var shareButton: UIBarButtonItem!
-    @IBOutlet weak var stopButton: UIBarButtonItem!
+    @IBOutlet weak private var webView: WKWebView!
+    @IBOutlet weak private var backButton: UIBarButtonItem!
+    @IBOutlet weak private var forwardButton: UIBarButtonItem!
+    @IBOutlet weak private var shareButton: UIBarButtonItem!
+    @IBOutlet weak private var stopButton: UIBarButtonItem!
     
-    let disposeBag = DisposeBag()
-    var accessUrl: String?
+    private let disposeBag = DisposeBag()
+    private var accessUrl: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class RepositoryWebViewController: UIViewController {
         setupBarButton()
     }
     
-    func setupBarButton() {
+    private func setupBarButton() {
         forwardButton.rx.tap
             .share(replay: 1)
             .subscribe(onNext: { [unowned self] in
@@ -65,7 +65,7 @@ class RepositoryWebViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func setupWebView() {
+    private func setupWebView() {
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -103,7 +103,7 @@ class RepositoryWebViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func showSharedSheet() {
+    private func showSharedSheet() {
         guard let title = title,
             let urlStr = accessUrl,
             let url = URL(string: urlStr) else { return }

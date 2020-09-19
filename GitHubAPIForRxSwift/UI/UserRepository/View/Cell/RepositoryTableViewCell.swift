@@ -10,11 +10,11 @@ import UIKit
 
 class RepositoryTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var repositoryNameLabel: UILabel!
-    @IBOutlet weak var discriptionLabel: UILabel!
-    @IBOutlet weak var starCountLabel: UILabel!
-    @IBOutlet weak var languageIconView: UIView!
-    @IBOutlet weak var languageLabel: UILabel!
+    @IBOutlet weak private var repositoryNameLabel: UILabel!
+    @IBOutlet weak private var discriptionLabel: UILabel!
+    @IBOutlet weak private var starCountLabel: UILabel!
+    @IBOutlet weak private var languageIconView: UIView!
+    @IBOutlet weak private var languageLabel: UILabel!
     
     func setup(repositoryName: String?, discription: String?,
                starCount: Int?, language: String?) {

@@ -19,12 +19,12 @@ class UserRepositoryViewController: UIViewController {
         return vc
     }
     
-    @IBOutlet weak var userFullNameLabel: UILabel!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var userIconImageView: UIImageView!
-    @IBOutlet weak var followersCountLabel: UILabel!
-    @IBOutlet weak var followingCountLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak private var userFullNameLabel: UILabel!
+    @IBOutlet weak private var userNameLabel: UILabel!
+    @IBOutlet weak private var userIconImageView: UIImageView!
+    @IBOutlet weak private var followersCountLabel: UILabel!
+    @IBOutlet weak private var followingCountLabel: UILabel!
+    @IBOutlet weak private var tableView: UITableView!
     
     private lazy var dataSource = UserRepositoryViewController.dataSource()
 
@@ -37,10 +37,10 @@ class UserRepositoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        setup()
+        setupViewModel()
     }
     
-    func setup() {
+    private func setupViewModel() {
         viewModel = UserRepositoryViewModel(userName: userName)
         
         viewModel?.fetchUserData()
@@ -67,12 +67,12 @@ class UserRepositoryViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func transitionWebView(url acceseUrl: String?) {
+    private func transitionWebView(url acceseUrl: String?) {
         let vc = RepositoryWebViewController.instance(at: acceseUrl)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func setupUserAcountView(at fullName: String?,
+    private func setupUserAcountView(at fullName: String?,
                              at name: String?,
                              at iconUrl: String?,
                              at followersCount: String?,
@@ -108,7 +108,7 @@ extension UserRepositoryViewController: UITableViewDelegate {
         })
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         tableView.register(UINib(nibName: "RepositoryTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "cell")
         
