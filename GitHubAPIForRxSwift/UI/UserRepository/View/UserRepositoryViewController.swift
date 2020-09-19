@@ -13,7 +13,7 @@ import RxDataSources
 
 class UserRepositoryViewController: UIViewController {
 
-    static func instance(userName: String?) -> UserRepositoryViewController {
+    static func instance(at userName: String?) -> UserRepositoryViewController {
         let vc = UserRepositoryViewController()
         vc.userName = userName
         return vc
@@ -34,11 +34,10 @@ class UserRepositoryViewController: UIViewController {
     
     private var userName: String?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupTableView()
-        self.setup()
+        setupTableView()
+        setup()
     }
     
     func setup() {
@@ -47,10 +46,43 @@ class UserRepositoryViewController: UIViewController {
         viewModel?.fetchUserData()
         viewModel?.fetchUserRepository()
         
+        viewModel?.userData
+            .subscribe(onNext: { [unowned self] response in
+                self.setupUserAcountView(at: response.userFullName,
+                                         at: response.userName,
+                                         at: response.avatarUrl,
+                                         at: response.followersCount?.description,
+                                         at: response.followingCount?.description)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel?.items
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-
+        
+        viewModel?.selected
+            .subscribe(onNext: {[unowned self] response in
+                self.transitionWebView(url: response)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func transitionWebView(url acceseUrl: String?) {
+        let vc = RepositoryWebViewController.instance(at: acceseUrl)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setupUserAcountView(at fullName: String?,
+                             at name: String?,
+                             at iconUrl: String?,
+                             at followersCount: String?,
+                             at followingCount: String?) {
+        userFullNameLabel.text = fullName
+        userNameLabel.text = name
+        userIconImageView.ex.loadUrl(imageUrl: iconUrl,
+                                     processorOption: .resizeCircle)
+        followersCountLabel.text = followersCount
+        followingCountLabel.text = followingCount
     }
 }
 
@@ -82,5 +114,11 @@ extension UserRepositoryViewController: UITableViewDelegate {
         
         tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+        .subscribe(onNext: { [unowned self] indexPath in
+            self.viewModel?.getRepositoryUrl(at: indexPath)
+        })
+        .disposed(by: disposeBag)
     }
 }

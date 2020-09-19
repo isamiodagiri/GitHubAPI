@@ -30,9 +30,10 @@ extension SectionOfRepository: SectionModelType {
 class UserRepositoryViewModel {
 
     let disposeBag = DisposeBag()
-    let items = BehaviorRelay<[SectionOfRepository]>(value: [])
-    let userData = PublishRelay<User>()
-    
+    let items = BehaviorSubject<[SectionOfRepository]>(value: [])
+    let userData = PublishSubject<User>()
+    let selected = PublishSubject<String?>()
+
     var userName: String?
 
     init(userName: String?) {
@@ -42,7 +43,7 @@ class UserRepositoryViewModel {
     func fetchUserData() {
         let request = ApiRequestUserData.path(userName: self.userName ?? "")
         ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
-            self?.userData.accept(response)
+            self?.userData.onNext(response)
         }) { error in
             print("エラー：\(error)")
         }
@@ -53,9 +54,17 @@ class UserRepositoryViewModel {
         ApiCliant.callToArray(request, disposeBag, onSuccess: { [weak self] response in
             let section = SectionOfRepository(header: "Repository",
                                               items: response)
-            self?.items.accept([section])
+            self?.items.onNext([section])
         }) { error in
             print("エラー：\(error)")
         }
+    }
+    
+    func getRepositoryUrl(at indexPath: IndexPath) {
+        guard let list = try? items.value() else { return }
+        
+        let items = list[indexPath.section].items
+
+        selected.onNext(items[indexPath.row].repositoryUrl)
     }
 }

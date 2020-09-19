@@ -28,6 +28,8 @@
 		575148BF250E412F00766015 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575148BE250E412F00766015 /* UserList.swift */; };
 		575148C1250E41CE00766015 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575148C0250E41CE00766015 /* UserRepository.swift */; };
 		575148C5250E457B00766015 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575148C4250E457B00766015 /* Nuke.framework */; };
+		5779986C2515EC58005B7F95 /* RxWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; };
+		5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */; };
 		57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2661250FA34F00EEA247 /* TargetedExtension.swift */; };
 		57DE2664250FA72600EEA247 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2663250FA72600EEA247 /* CircleImageView.swift */; };
@@ -43,6 +45,8 @@
 		57DE267F25119D5F00EEA247 /* BaseApiRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE267E25119D5F00EEA247 /* BaseApiRequestProtocol.swift */; };
 		57DE268225130CED00EEA247 /* ApiRequestUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE268125130CED00EEA247 /* ApiRequestUserData.swift */; };
 		57DE26852513101F00EEA247 /* ApiRequestUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE26842513101F00EEA247 /* ApiRequestUserRepository.swift */; };
+		57DE26882515C28800EEA247 /* RepositoryWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57DE26872515C28800EEA247 /* RepositoryWebView.xib */; };
+		57DE268A2515C2CA00EEA247 /* RepositoryWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE26892515C2CA00EEA247 /* RepositoryWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,20 @@
 			remoteInfo = GitHubAPIForRxSwift;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5779986E2515EC58005B7F95 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		572A9067250BD4CA002697DD /* GitHubAPIForRxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubAPIForRxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +111,7 @@
 		575148BE250E412F00766015 /* UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		575148C0250E41CE00766015 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		575148C4250E457B00766015 /* Nuke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nuke.framework; path = Carthage/Build/iOS/Nuke.framework; sourceTree = "<group>"; };
+		5779986B2515EC58005B7F95 /* RxWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxWebKit.framework; path = Carthage/Build/iOS/RxWebKit.framework; sourceTree = "<group>"; };
 		57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
 		57DE2661250FA34F00EEA247 /* TargetedExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetedExtension.swift; sourceTree = "<group>"; };
 		57DE2663250FA72600EEA247 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -107,6 +126,8 @@
 		57DE267E25119D5F00EEA247 /* BaseApiRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiRequestProtocol.swift; sourceTree = "<group>"; };
 		57DE268125130CED00EEA247 /* ApiRequestUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestUserData.swift; sourceTree = "<group>"; };
 		57DE26842513101F00EEA247 /* ApiRequestUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestUserRepository.swift; sourceTree = "<group>"; };
+		57DE26872515C28800EEA247 /* RepositoryWebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepositoryWebView.xib; sourceTree = "<group>"; };
+		57DE26892515C2CA00EEA247 /* RepositoryWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryWebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +141,7 @@
 				57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */,
 				5751489A250D059E00766015 /* Alamofire.framework in Frameworks */,
 				57514891250D055D00766015 /* RxAlamofire.framework in Frameworks */,
+				5779986C2515EC58005B7F95 /* RxWebKit.framework in Frameworks */,
 				575148C5250E457B00766015 /* Nuke.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +223,7 @@
 		5751488B250D053500766015 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5779986B2515EC58005B7F95 /* RxWebKit.framework */,
 				57DE26722511076500EEA247 /* RxTest.framework */,
 				575148C4250E457B00766015 /* Nuke.framework */,
 				575148A5250D05D800766015 /* RxBlocking.framework */,
@@ -219,6 +242,7 @@
 		575148A9250E394300766015 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				57DE26862515C24000EEA247 /* WebView */,
 				575148AB250E395800766015 /* UserRepository */,
 				575148AA250E394E00766015 /* UserList */,
 			);
@@ -369,6 +393,15 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		57DE26862515C24000EEA247 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				57DE26892515C2CA00EEA247 /* RepositoryWebViewController.swift */,
+				57DE26872515C28800EEA247 /* RepositoryWebView.xib */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -380,6 +413,7 @@
 				572A9064250BD4CA002697DD /* Frameworks */,
 				572A9065250BD4CA002697DD /* Resources */,
 				575148A8250D05F800766015 /* Carthage Script */,
+				5779986E2515EC58005B7F95 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -479,6 +513,7 @@
 				572A9077250BD4CD002697DD /* LaunchScreen.storyboard in Resources */,
 				575148B5250E3B3100766015 /* UserRepositoryView.xib in Resources */,
 				57DE26712510293C00EEA247 /* RepositoryTableViewCell.xib in Resources */,
+				57DE26882515C28800EEA247 /* RepositoryWebView.xib in Resources */,
 				572A9074250BD4CD002697DD /* Assets.xcassets in Resources */,
 				575148B3250E3B1800766015 /* UserListView.xib in Resources */,
 			);
@@ -518,6 +553,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Nuke.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
+				"$(SRCROOT)/carthage/Build/iOS/RxWebKit.framework",
 			);
 			name = "Carthage Script";
 			outputFileListPaths = (
@@ -558,6 +594,7 @@
 				57DE2664250FA72600EEA247 /* CircleImageView.swift in Sources */,
 				57DE267D2511962F00EEA247 /* ApiRequestUserList.swift in Sources */,
 				572A906B250BD4CA002697DD /* AppDelegate.swift in Sources */,
+				57DE268A2515C2CA00EEA247 /* RepositoryWebViewController.swift in Sources */,
 				572A906D250BD4CA002697DD /* SceneDelegate.swift in Sources */,
 				57DE266C2510290400EEA247 /* UserListTableViewCell.swift in Sources */,
 				57DE268225130CED00EEA247 /* ApiRequestUserData.swift in Sources */,

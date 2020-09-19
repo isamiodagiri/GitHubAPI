@@ -17,11 +17,11 @@ class RepositoryTableViewCell: UITableViewCell {
     @IBOutlet weak var languageLabel: UILabel!
     
     func setup(repositoryName: String?, discription: String?,
-               starCount: String?, language: String?) {
+               starCount: Int?, language: String?) {
         
         repositoryNameLabel.text = repositoryName
         discriptionLabel.text = discription
-        starCountLabel.text = starCount
+        starCountLabel.text = starCount?.description
         languageLabel.text = language
         languageIconView.isHidden = language == nil
     }

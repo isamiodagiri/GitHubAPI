@@ -48,11 +48,11 @@ class UserListViewModel {
         }
     }
     
-    func fecthUserName(at indexPath: IndexPath) {
+    func getUserName(at indexPath: IndexPath) {
         guard let list = try? items.value() else { return }
         
         let items = list[indexPath.section].items
 
-        self.selected.onNext(items[indexPath.row].userName)
+        selected.onNext(items[indexPath.row].userName)
     }
 }

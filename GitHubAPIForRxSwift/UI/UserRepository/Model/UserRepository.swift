@@ -32,7 +32,7 @@ class Repository: Mappable {
     var repositoryName: String?
     var language: String?
     var description: String?
-    var stargazersCount: String?
+    var stargazersCount: Int?
     var repositoryUrl: String?
     var isFork: Bool?
     

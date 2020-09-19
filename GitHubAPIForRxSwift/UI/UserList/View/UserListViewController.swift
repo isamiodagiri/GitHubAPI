@@ -47,12 +47,13 @@ class UserListViewController: UIViewController {
         
         viewModel?.selected
             .subscribe(onNext: {[unowned self] text in
-                self.transition(at: text)})
+                self.transitionUserRepositoryView(name: text)
+            })
             .disposed(by: disposeBag)
     }
     
-    func transition(at text: String?) {
-        let vc = UserRepositoryViewController.instance(userName: text)
+    func transitionUserRepositoryView(name userName: String?) {
+        let vc = UserRepositoryViewController.instance(at: userName)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -85,7 +86,8 @@ extension UserListViewController: UITableViewDelegate {
         
         tableView.rx.itemSelected
             .subscribe(onNext: { [unowned self] indexPath in
-                self.viewModel?.fecthUserName(at: indexPath)})
+                self.viewModel?.getUserName(at: indexPath)
+            })
             .disposed(by: disposeBag)
     }
 }
