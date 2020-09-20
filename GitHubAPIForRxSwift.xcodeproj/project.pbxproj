@@ -30,6 +30,10 @@
 		575148C5250E457B00766015 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575148C4250E457B00766015 /* Nuke.framework */; };
 		5779986C2515EC58005B7F95 /* RxWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; };
 		5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		577998722517B4FC005B7F95 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577998712517B4FC005B7F95 /* RxGesture.framework */; };
+		577998732517B4FC005B7F95 /* RxGesture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 577998712517B4FC005B7F95 /* RxGesture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		577998752517B50A005B7F95 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577998742517B50A005B7F95 /* PKHUD.framework */; };
+		577998762517B50A005B7F95 /* PKHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 577998742517B50A005B7F95 /* PKHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */; };
 		57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2661250FA34F00EEA247 /* TargetedExtension.swift */; };
 		57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2666250FA83000EEA247 /* ApiClient.swift */; };
@@ -72,6 +76,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				577998762517B50A005B7F95 /* PKHUD.framework in Embed Frameworks */,
+				577998732517B4FC005B7F95 /* RxGesture.framework in Embed Frameworks */,
 				5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -111,6 +117,8 @@
 		575148C0250E41CE00766015 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		575148C4250E457B00766015 /* Nuke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nuke.framework; path = Carthage/Build/iOS/Nuke.framework; sourceTree = "<group>"; };
 		5779986B2515EC58005B7F95 /* RxWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxWebKit.framework; path = Carthage/Build/iOS/RxWebKit.framework; sourceTree = "<group>"; };
+		577998712517B4FC005B7F95 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
+		577998742517B50A005B7F95 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
 		57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
 		57DE2661250FA34F00EEA247 /* TargetedExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetedExtension.swift; sourceTree = "<group>"; };
 		57DE2666250FA83000EEA247 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
@@ -134,7 +142,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5751488D250D053600766015 /* RxDataSources.framework in Frameworks */,
+				577998752517B50A005B7F95 /* PKHUD.framework in Frameworks */,
 				575148A0250D05C200766015 /* RxCocoa.framework in Frameworks */,
+				577998722517B4FC005B7F95 /* RxGesture.framework in Frameworks */,
 				575148A3250D05CE00766015 /* RxSwift.framework in Frameworks */,
 				57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */,
 				5751489A250D059E00766015 /* Alamofire.framework in Frameworks */,
@@ -221,6 +231,8 @@
 		5751488B250D053500766015 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				577998742517B50A005B7F95 /* PKHUD.framework */,
+				577998712517B4FC005B7F95 /* RxGesture.framework */,
 				5779986B2515EC58005B7F95 /* RxWebKit.framework */,
 				57DE26722511076500EEA247 /* RxTest.framework */,
 				575148C4250E457B00766015 /* Nuke.framework */,
@@ -551,6 +563,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 				"$(SRCROOT)/carthage/Build/iOS/RxWebKit.framework",
+				"$(SRCROOT)/carthage/Build/iOS/RxGesture.framework",
+				"$(SRCROOT)/carthage/Build/iOS/PKHUD.framework",
 			);
 			name = "Carthage Script";
 			outputFileListPaths = (
