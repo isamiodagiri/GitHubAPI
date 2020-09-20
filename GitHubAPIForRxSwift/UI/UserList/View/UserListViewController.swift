@@ -21,17 +21,9 @@ class UserListViewController: UIViewController {
     private lazy var dataSource = UserListViewController.dataSource()
     private var viewModel: UserListViewModel?
 
-    var rx_searchBarText: Observable<String> {
-        return searchBar.rx.text
-            .filter { $0 != nil }
-            .map { $0! }
-            .filter { $0.count > 0 }
-            .debounce(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance) //0.5秒のバッファを持たせる
-            .distinctUntilChanged()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSearchBar()
         setupTableView()
         setupViewModel()
     }
@@ -46,7 +38,7 @@ class UserListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel?.selected
-            .subscribe(onNext: {[unowned self] text in
+            .subscribe(onNext: { [unowned self] text in
                 self.transitionUserRepositoryView(name: text)
             })
             .disposed(by: disposeBag)
@@ -55,6 +47,26 @@ class UserListViewController: UIViewController {
     private func transitionUserRepositoryView(name userName: String?) {
         let vc = UserRepositoryViewController.instance(at: userName)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension UserListViewController: UISearchBarDelegate {
+    
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        
+        searchBar.rx
+        .searchButtonClicked
+        .asDriver()
+        .drive(onNext: { [unowned self] _ in
+            self.searchBar.resignFirstResponder()
+
+            if let text = self.searchBar.text, !text.isEmpty {
+                self.viewModel?.fetchItem(at: self.searchBar.text ?? "")
+            }
+        })
+        .disposed(by: disposeBag)
+        
     }
 }
 
@@ -79,6 +91,8 @@ extension UserListViewController: UITableViewDelegate {
     private func setupTableView() {
         tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "cell")
+        
+        tableView.delaysContentTouches = false
         
         tableView.rx
             .setDelegate(self)
