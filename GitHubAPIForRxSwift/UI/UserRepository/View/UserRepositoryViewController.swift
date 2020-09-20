@@ -118,6 +118,7 @@ extension UserRepositoryViewController: UITableViewDelegate {
         tableView.rx.itemSelected
         .subscribe(onNext: { [unowned self] indexPath in
             self.viewModel?.getRepositoryUrl(at: indexPath)
+            self.tableView.deselectRow(at: indexPath, animated: true)
         })
         .disposed(by: disposeBag)
     }
