@@ -10,7 +10,7 @@ import UIKit
 
 class UserListTableViewCell: UITableViewCell {
     
-    @IBOutlet weak private var iconImageView: CircleImageView!
+    @IBOutlet weak private var iconImageView: UIImageView!
     @IBOutlet weak private var nameLabel: UILabel!
     
     func setup(imageUrl: String?, name: String?) {

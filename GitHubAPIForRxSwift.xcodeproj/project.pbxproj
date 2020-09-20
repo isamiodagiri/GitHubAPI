@@ -32,7 +32,6 @@
 		5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */; };
 		57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2661250FA34F00EEA247 /* TargetedExtension.swift */; };
-		57DE2664250FA72600EEA247 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2663250FA72600EEA247 /* CircleImageView.swift */; };
 		57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2666250FA83000EEA247 /* ApiClient.swift */; };
 		57DE266C2510290400EEA247 /* UserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE266A2510290400EEA247 /* UserListTableViewCell.swift */; };
 		57DE266D2510290400EEA247 /* UserListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57DE266B2510290400EEA247 /* UserListTableViewCell.xib */; };
@@ -114,7 +113,6 @@
 		5779986B2515EC58005B7F95 /* RxWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxWebKit.framework; path = Carthage/Build/iOS/RxWebKit.framework; sourceTree = "<group>"; };
 		57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
 		57DE2661250FA34F00EEA247 /* TargetedExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetedExtension.swift; sourceTree = "<group>"; };
-		57DE2663250FA72600EEA247 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		57DE2666250FA83000EEA247 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		57DE266A2510290400EEA247 /* UserListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTableViewCell.swift; sourceTree = "<group>"; };
 		57DE266B2510290400EEA247 /* UserListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserListTableViewCell.xib; sourceTree = "<group>"; };
@@ -333,7 +331,6 @@
 		57DE2660250FA1C700EEA247 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				57DE2663250FA72600EEA247 /* CircleImageView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -591,7 +588,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57DE2664250FA72600EEA247 /* CircleImageView.swift in Sources */,
 				57DE267D2511962F00EEA247 /* ApiRequestUserList.swift in Sources */,
 				572A906B250BD4CA002697DD /* AppDelegate.swift in Sources */,
 				57DE268A2515C2CA00EEA247 /* RepositoryWebViewController.swift in Sources */,

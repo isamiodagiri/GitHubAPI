@@ -13,13 +13,18 @@ class RepositoryTableViewCell: UITableViewCell {
     @IBOutlet weak private var repositoryNameLabel: UILabel!
     @IBOutlet weak private var discriptionLabel: UILabel!
     @IBOutlet weak private var starCountLabel: UILabel!
-    @IBOutlet weak private var languageIconView: UIView!
+    @IBOutlet weak private var languageIconView: UIView! {
+        didSet {
+            languageIconView.layer.cornerRadius = languageIconView.frame.height / 2
+        }
+    }
     @IBOutlet weak private var languageLabel: UILabel!
     
     func setup(repositoryName: String?, discription: String?,
                starCount: Int?, language: String?) {
         
         repositoryNameLabel.text = repositoryName
+        discriptionLabel.isHidden = discription == nil
         discriptionLabel.text = discription
         starCountLabel.text = starCount?.description
         languageLabel.text = language

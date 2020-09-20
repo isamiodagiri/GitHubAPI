@@ -42,7 +42,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="iconImageView" destination="t4k-DC-zQK" id="aOZ-Ir-gCp"/>
+                <outlet property="iconImageView" destination="t4k-DC-zQK" id="1fl-ah-A1L"/>
                 <outlet property="nameLabel" destination="b0a-Xy-g57" id="8Qa-ee-drU"/>
             </connections>
             <point key="canvasLocation" x="136" y="160"/>
