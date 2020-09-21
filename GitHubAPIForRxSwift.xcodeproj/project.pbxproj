@@ -14,6 +14,9 @@
 		572A9082250BD4CE002697DD /* GitHubAPIForRxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A9081250BD4CE002697DD /* GitHubAPIForRxSwiftTests.swift */; };
 		572A908D250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A908C250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift */; };
 		572B37FE25184C5C00C3339E /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B37FD25184C5C00C3339E /* Localize.swift */; };
+		572B380325196B0900C3339E /* FooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B380125196B0900C3339E /* FooterTableViewCell.swift */; };
+		572B380425196B0900C3339E /* FooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 572B380225196B0900C3339E /* FooterTableViewCell.xib */; };
+		572B38062519711900C3339E /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B38052519711900C3339E /* UITableViewCellExtension.swift */; };
 		5751488D250D053600766015 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5751488C250D053600766015 /* RxDataSources.framework */; };
 		57514891250D055D00766015 /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514890250D055D00766015 /* RxAlamofire.framework */; };
 		57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514896250D058E00766015 /* ObjectMapper.framework */; };
@@ -100,6 +103,9 @@
 		572A908C250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIForRxSwiftUITests.swift; sourceTree = "<group>"; };
 		572A908E250BD4CE002697DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		572B37FD25184C5C00C3339E /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
+		572B380125196B0900C3339E /* FooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterTableViewCell.swift; sourceTree = "<group>"; };
+		572B380225196B0900C3339E /* FooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterTableViewCell.xib; sourceTree = "<group>"; };
+		572B38052519711900C3339E /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
 		5751488C250D053600766015 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		57514890250D055D00766015 /* RxAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAlamofire.framework; path = Carthage/Build/iOS/RxAlamofire.framework; sourceTree = "<group>"; };
 		57514893250D057D00766015 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
@@ -347,6 +353,7 @@
 			children = (
 				57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */,
 				57DE2661250FA34F00EEA247 /* TargetedExtension.swift */,
+				572B38052519711900C3339E /* UITableViewCellExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -371,6 +378,8 @@
 			children = (
 				57DE266A2510290400EEA247 /* UserListTableViewCell.swift */,
 				57DE266B2510290400EEA247 /* UserListTableViewCell.xib */,
+				572B380125196B0900C3339E /* FooterTableViewCell.swift */,
+				572B380225196B0900C3339E /* FooterTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -531,6 +540,7 @@
 			files = (
 				57DE266D2510290400EEA247 /* UserListTableViewCell.xib in Resources */,
 				572A9077250BD4CD002697DD /* LaunchScreen.storyboard in Resources */,
+				572B380425196B0900C3339E /* FooterTableViewCell.xib in Resources */,
 				575148B5250E3B3100766015 /* UserRepositoryView.xib in Resources */,
 				57DE26712510293C00EEA247 /* RepositoryTableViewCell.xib in Resources */,
 				57DE26882515C28800EEA247 /* RepositoryWebView.xib in Resources */,
@@ -629,10 +639,12 @@
 				57DE26702510293C00EEA247 /* RepositoryTableViewCell.swift in Sources */,
 				575148B7250E3BDD00766015 /* UserListViewController.swift in Sources */,
 				575148BF250E412F00766015 /* UserList.swift in Sources */,
+				572B380325196B0900C3339E /* FooterTableViewCell.swift in Sources */,
 				575148B9250E3BEB00766015 /* UserRepositoryViewController.swift in Sources */,
 				57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */,
 				57DE267F25119D5F00EEA247 /* BaseApiRequestProtocol.swift in Sources */,
 				57DE26852513101F00EEA247 /* ApiRequestUserRepository.swift in Sources */,
+				572B38062519711900C3339E /* UITableViewCellExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
