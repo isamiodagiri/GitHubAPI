@@ -13,7 +13,6 @@
 		572A9077250BD4CD002697DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 572A9075250BD4CD002697DD /* LaunchScreen.storyboard */; };
 		572A9082250BD4CE002697DD /* GitHubAPIForRxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A9081250BD4CE002697DD /* GitHubAPIForRxSwiftTests.swift */; };
 		572A908D250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A908C250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift */; };
-		572B37FE25184C5C00C3339E /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B37FD25184C5C00C3339E /* Localize.swift */; };
 		5751488D250D053600766015 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5751488C250D053600766015 /* RxDataSources.framework */; };
 		57514891250D055D00766015 /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514890250D055D00766015 /* RxAlamofire.framework */; };
 		57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514896250D058E00766015 /* ObjectMapper.framework */; };
@@ -99,7 +98,6 @@
 		572A9088250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubAPIForRxSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		572A908C250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIForRxSwiftUITests.swift; sourceTree = "<group>"; };
 		572A908E250BD4CE002697DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		572B37FD25184C5C00C3339E /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		5751488C250D053600766015 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		57514890250D055D00766015 /* RxAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAlamofire.framework; path = Carthage/Build/iOS/RxAlamofire.framework; sourceTree = "<group>"; };
 		57514893250D057D00766015 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
@@ -199,7 +197,6 @@
 		572A9069250BD4CA002697DD /* GitHubAPIForRxSwift */ = {
 			isa = PBXGroup;
 			children = (
-				572B37FC25184B9700C3339E /* Localize */,
 				57DE267B251195CE00EEA247 /* API */,
 				57DE2660250FA1C700EEA247 /* Common */,
 				57DE265D250F99E300EEA247 /* Extension */,
@@ -229,14 +226,6 @@
 				572A908E250BD4CE002697DD /* Info.plist */,
 			);
 			path = GitHubAPIForRxSwiftUITests;
-			sourceTree = "<group>";
-		};
-		572B37FC25184B9700C3339E /* Localize */ = {
-			isa = PBXGroup;
-			children = (
-				572B37FD25184C5C00C3339E /* Localize.swift */,
-			);
-			path = Localize;
 			sourceTree = "<group>";
 		};
 		5751488B250D053500766015 /* Frameworks */ = {
@@ -625,7 +614,6 @@
 				57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */,
 				57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */,
 				575148BB250E3C0300766015 /* UserRepositoryViewModel.swift in Sources */,
-				572B37FE25184C5C00C3339E /* Localize.swift in Sources */,
 				57DE26702510293C00EEA247 /* RepositoryTableViewCell.swift in Sources */,
 				575148B7250E3BDD00766015 /* UserListViewController.swift in Sources */,
 				575148BF250E412F00766015 /* UserList.swift in Sources */,
