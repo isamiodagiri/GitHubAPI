@@ -11,15 +11,15 @@ import Nuke
 
 extension UIImageView: TargetedExtensionCompatible {}
 
-public enum ProcessorsOption {
+enum ProcessorsOption {
     case resize
     case resizeRound(radius: CGFloat)
     case resizeCircle
 }
 
-public typealias AspectMode = ImageProcessors.Resize.ContentMode
+typealias AspectMode = ImageProcessors.Resize.ContentMode
 
-public extension TargetedExtension where Base: UIImageView {
+extension TargetedExtension where Base: UIImageView {
 
     func loadUrl(imageUrl: String?,
                  processorOption: ProcessorsOption = ProcessorsOption.resize,
