@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxGesture
 
 class UserListViewController: UIViewController {
     
@@ -26,6 +27,7 @@ class UserListViewController: UIViewController {
         setupSearchBar()
         setupTableView()
         setupViewModel()
+        setupGesture()
     }
     
     private func setupViewModel() {
@@ -67,6 +69,27 @@ class UserListViewController: UIViewController {
         })
         alert.addAction(communicationAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func setupGesture() {
+        
+        view.rx.panGesture()
+            .when(.began)
+            .subscribe(onNext: { _ in
+                if self.searchBar.searchTextField.isEditing {
+                    self.view.endEditing(true)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        navigationController?.navigationBar.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                if self.searchBar.searchTextField.isEditing {
+                    self.view.endEditing(true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
