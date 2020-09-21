@@ -32,6 +32,7 @@ class UserRepositoryViewModel {
     private let disposeBag = DisposeBag()
 
     let items = BehaviorSubject<[SectionOfRepository]>(value: [])
+    let error = PublishSubject<Bool>()
     let userData = PublishSubject<User>()
     let selected = PublishSubject<String?>()
 
@@ -44,20 +45,26 @@ class UserRepositoryViewModel {
     func fetchUserData() {
         let request = ApiRequestUserData.path(userName: self.userName ?? "")
         ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
+            print("Response：\(response)")
+            
             self?.userData.onNext(response)
-        }) { error in
-            print("エラー：\(error)")
+        }) { [weak self] error in
+            print("Error：\(error)")
+            self?.error.onNext(true)
         }
     }
     
     func fetchUserRepository() {
         let request = ApiRequestUserRepository.path(userName: self.userName ?? "")
         ApiCliant.callToArray(request, disposeBag, onSuccess: { [weak self] response in
+            print("Response：\(response)")
+            
             let section = SectionOfRepository(header: "Repository",
                                               items: response)
             self?.items.onNext([section])
-        }) { error in
-            print("エラー：\(error)")
+        }) { [weak self] error in
+            print("Error：\(error)")
+            self?.error.onNext(false)
         }
     }
     

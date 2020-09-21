@@ -31,7 +31,7 @@ class UserListViewController: UIViewController {
     private func setupViewModel() {
         viewModel = UserListViewModel()
         
-        viewModel?.fetchItem(at: "swift")
+        viewModel?.fetchItem()
         
         viewModel?.items
             .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -42,11 +42,31 @@ class UserListViewController: UIViewController {
                 self.transitionUserRepositoryView(name: text)
             })
             .disposed(by: disposeBag)
+        
+        viewModel?.error
+            .subscribe(onNext: { [unowned self] _ in
+                self.showErrorDialog()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func transitionUserRepositoryView(name userName: String?) {
         let vc = UserRepositoryViewController.instance(at: userName)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func showErrorDialog() {
+        let alert: UIAlertController = UIAlertController(title: Localize.communicationErrorTitle,
+                                                         message: Localize.communicationErrorMessege,
+                                                         preferredStyle:  .alert)
+        
+        let communicationAction = UIAlertAction(title: Localize.communicationErrorAction,
+                                                style: .default,
+                                                handler: { [weak self] _ in
+                                                    self?.viewModel?.fetchItem(at: self?.searchBar.text ?? "")
+        })
+        alert.addAction(communicationAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -62,7 +82,7 @@ extension UserListViewController: UISearchBarDelegate {
             self.searchBar.resignFirstResponder()
 
             if let text = self.searchBar.text, !text.isEmpty {
-                self.viewModel?.fetchItem(at: self.searchBar.text ?? "")
+                self.viewModel?.fetchItem(at: text)
             }
         })
         .disposed(by: disposeBag)

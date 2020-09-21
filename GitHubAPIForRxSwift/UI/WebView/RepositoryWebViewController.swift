@@ -65,14 +65,53 @@ class RepositoryWebViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setupWebView() {
-        webView.navigationDelegate = self
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func loadingWebView() {
         if let urlStr = accessUrl, let url = URL(string: urlStr) {
             let request = URLRequest(url: url)
             webView.load(request)
         }
+    }
+    
+    private func showSharedSheet() {
+        guard let title = title,
+            let urlStr = accessUrl,
+            let url = URL(string: urlStr) else { return }
+        
+        let activityVC = UIActivityViewController(activityItems: [title, url], applicationActivities: nil)
+        present(activityVC, animated: true, completion: nil)
+    }
+    
+    private func showErrorDialog() {
+        let alert: UIAlertController = UIAlertController(title: Localize.communicationErrorTitle,
+                                                         message: Localize.communicationErrorMessege,
+                                                         preferredStyle:  .alert)
+        
+        let reloadAction = UIAlertAction(title: Localize.reloadAction,
+                                         style: .default,
+                                         handler: { [weak self] _ in
+                                            self?.loadingWebView()
+        })
+        
+        let backViewAction = UIAlertAction(title: Localize.backViewAction,
+                                           style: .cancel,
+                                           handler: { [weak self] _ in
+                                            self?.navigationController?.popViewController(animated: true)
+        })
+        
+        alert.addAction(reloadAction)
+        alert.addAction(backViewAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+extension RepositoryWebViewController: WKNavigationDelegate {
+        
+    private func setupWebView() {
+        webView.navigationDelegate = self
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        
+        loadingWebView()
         
         webView.rx.canGoBack
             .share(replay: 1)
@@ -101,16 +140,12 @@ class RepositoryWebViewController: UIViewController {
                 self.title = response
             }
             .disposed(by: disposeBag)
-    }
-    
-    private func showSharedSheet() {
-        guard let title = title,
-            let urlStr = accessUrl,
-            let url = URL(string: urlStr) else { return }
         
-        let activityVC = UIActivityViewController(activityItems: [title, url], applicationActivities: nil)
-        present(activityVC, animated: true, completion: nil)
+        webView.rx
+            .didFailProvisionalNavigation
+            .subscribe(onNext: { [unowned self] _, _, _ in
+                self.showErrorDialog()
+            })
+            .disposed(by: disposeBag)
     }
 }
-
-extension RepositoryWebViewController: WKNavigationDelegate {}
