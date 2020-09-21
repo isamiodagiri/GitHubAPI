@@ -65,6 +65,12 @@ class UserRepositoryViewController: UIViewController {
                 self.transitionWebView(url: response)
             })
             .disposed(by: disposeBag)
+        
+        viewModel?.error
+            .subscribe(onNext: { [unowned self] flag in
+                self.showErrorDialog(isUserData: flag)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func transitionWebView(url acceseUrl: String?) {
@@ -83,6 +89,24 @@ class UserRepositoryViewController: UIViewController {
                                      processorOption: .resizeCircle)
         followersCountLabel.text = followersCount
         followingCountLabel.text = followingCount
+    }
+    
+    private func showErrorDialog(isUserData: Bool) {
+        let alert: UIAlertController = UIAlertController(title: Localize.communicationErrorTitle,
+                                                         message: Localize.communicationErrorMessege,
+                                                         preferredStyle:  .alert)
+        
+        let communicationAction = UIAlertAction(title: Localize.communicationErrorAction,
+                                                style: .default,
+                                                handler: { [weak self] _ in
+                                                    if isUserData {
+                                                        self?.viewModel?.fetchUserData()
+                                                    } else {
+                                                        self?.viewModel?.fetchUserRepository()
+                                                    }
+        })
+        alert.addAction(communicationAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 

@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+enum Localize {
+    static let communicationErrorTitle = "通信エラー"
+    static let communicationErrorMessege = "インターネット接続が悪いようです。\n通信状態を確認してください。"
+    static let communicationErrorAction = "通信する"
+    static let reloadAction = "再読み込み"
+    static let backViewAction = "戻る"
+
+}

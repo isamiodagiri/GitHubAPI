@@ -32,20 +32,26 @@ class UserListViewModel {
     private let disposeBag = DisposeBag()
 
     let items = BehaviorSubject<[SectionOfUserList]>(value: [])
+    let error = PublishSubject<Error>()
     let selected = PublishSubject<String?>()
     
-    func fetchItem(at text: String) {
-        let request = ApiRequestUserList.get(keyword: text)
+    func fetchItem(at text: String = "") {
+        let keyword = text.isEmpty ? "swift" : text
+        
+        let request = ApiRequestUserList.get(keyword: keyword)
         ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
             guard let self = self,
                 let totalCount = response.totalCount,
                 let userDetail = response.userDetail else { return }
-            
+
+            print("Response：\(response)")
+
             let section = SectionOfUserList(header: "\(totalCount)件",
                                             items: userDetail)
             self.items.onNext([section])
-        }) { error in
-            print("エラー：\(error)")
+        }) { [weak self] error in
+            print("Error：\(error)")
+            self?.error.onNext(error)
         }
     }
     
