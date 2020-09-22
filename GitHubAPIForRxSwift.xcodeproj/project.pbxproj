@@ -17,6 +17,7 @@
 		572B380325196B0900C3339E /* FooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B380125196B0900C3339E /* FooterTableViewCell.swift */; };
 		572B380425196B0900C3339E /* FooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 572B380225196B0900C3339E /* FooterTableViewCell.xib */; };
 		572B38062519711900C3339E /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B38052519711900C3339E /* UITableViewCellExtension.swift */; };
+		572B38082519E35100C3339E /* RxOptional.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572B38072519E35100C3339E /* RxOptional.framework */; };
 		5751488D250D053600766015 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5751488C250D053600766015 /* RxDataSources.framework */; };
 		57514891250D055D00766015 /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514890250D055D00766015 /* RxAlamofire.framework */; };
 		57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514896250D058E00766015 /* ObjectMapper.framework */; };
@@ -33,11 +34,8 @@
 		575148C1250E41CE00766015 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575148C0250E41CE00766015 /* UserRepository.swift */; };
 		575148C5250E457B00766015 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575148C4250E457B00766015 /* Nuke.framework */; };
 		5779986C2515EC58005B7F95 /* RxWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; };
-		5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		577998722517B4FC005B7F95 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577998712517B4FC005B7F95 /* RxGesture.framework */; };
-		577998732517B4FC005B7F95 /* RxGesture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 577998712517B4FC005B7F95 /* RxGesture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		577998752517B50A005B7F95 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577998742517B50A005B7F95 /* PKHUD.framework */; };
-		577998762517B50A005B7F95 /* PKHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 577998742517B50A005B7F95 /* PKHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */; };
 		57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2661250FA34F00EEA247 /* TargetedExtension.swift */; };
 		57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2666250FA83000EEA247 /* ApiClient.swift */; };
@@ -73,22 +71,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		5779986E2515EC58005B7F95 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				577998762517B50A005B7F95 /* PKHUD.framework in Embed Frameworks */,
-				577998732517B4FC005B7F95 /* RxGesture.framework in Embed Frameworks */,
-				5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		572A9067250BD4CA002697DD /* GitHubAPIForRxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubAPIForRxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		572A906A250BD4CA002697DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +88,7 @@
 		572B380125196B0900C3339E /* FooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterTableViewCell.swift; sourceTree = "<group>"; };
 		572B380225196B0900C3339E /* FooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterTableViewCell.xib; sourceTree = "<group>"; };
 		572B38052519711900C3339E /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
+		572B38072519E35100C3339E /* RxOptional.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxOptional.framework; path = Carthage/Build/iOS/RxOptional.framework; sourceTree = "<group>"; };
 		5751488C250D053600766015 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		57514890250D055D00766015 /* RxAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAlamofire.framework; path = Carthage/Build/iOS/RxAlamofire.framework; sourceTree = "<group>"; };
 		57514893250D057D00766015 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
@@ -156,6 +139,7 @@
 				575148A3250D05CE00766015 /* RxSwift.framework in Frameworks */,
 				57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */,
 				5751489A250D059E00766015 /* Alamofire.framework in Frameworks */,
+				572B38082519E35100C3339E /* RxOptional.framework in Frameworks */,
 				57514891250D055D00766015 /* RxAlamofire.framework in Frameworks */,
 				5779986C2515EC58005B7F95 /* RxWebKit.framework in Frameworks */,
 				575148C5250E457B00766015 /* Nuke.framework in Frameworks */,
@@ -248,6 +232,7 @@
 		5751488B250D053500766015 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				572B38072519E35100C3339E /* RxOptional.framework */,
 				577998742517B50A005B7F95 /* PKHUD.framework */,
 				577998712517B4FC005B7F95 /* RxGesture.framework */,
 				5779986B2515EC58005B7F95 /* RxWebKit.framework */,
@@ -442,7 +427,6 @@
 				572A9064250BD4CA002697DD /* Frameworks */,
 				572A9065250BD4CA002697DD /* Resources */,
 				575148A8250D05F800766015 /* Carthage Script */,
-				5779986E2515EC58005B7F95 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -586,6 +570,7 @@
 				"$(SRCROOT)/carthage/Build/iOS/RxWebKit.framework",
 				"$(SRCROOT)/carthage/Build/iOS/RxGesture.framework",
 				"$(SRCROOT)/carthage/Build/iOS/PKHUD.framework",
+				"$(SRCROOT)/carthage/Build/iOS/RxOptional.framework",
 			);
 			name = "Carthage Script";
 			outputFileListPaths = (
