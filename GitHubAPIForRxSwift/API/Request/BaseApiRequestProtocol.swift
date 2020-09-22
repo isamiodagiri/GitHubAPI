@@ -15,7 +15,7 @@ protocol BaseApiProtocol {
     var method: HTTPMethod { get }
     var baseURL: URL { get }
     var path: String { get }
-    var headers: HTTPHeaders? { get }
+    var headers: [String: String] { get }
 }
 
 extension BaseApiProtocol {
@@ -23,7 +23,7 @@ extension BaseApiProtocol {
         return URL(string: UrlConfig.baseURL)!
     }
     
-    var headers: HTTPHeaders? {
+    var headers: [String: String] {
         return UrlConfig.header
     }
 }
@@ -42,7 +42,7 @@ extension BaseRequestProtocol {
     func asURLRequest() throws -> URLRequest {
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
         urlRequest.httpMethod = method.rawValue
-        urlRequest.headers = headers ?? HTTPHeaders()
+        urlRequest.allHTTPHeaderFields = headers
         urlRequest.timeoutInterval = TimeInterval(30)
 
         if let params = parameters {

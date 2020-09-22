@@ -12,7 +12,9 @@ enum UrlConfig {
     
     static var baseURL = "https://api.github.com/"
 
-    static var header: HTTPHeaders? {
-        return []
+    static var header: [String: String] {
+        return ["Authorization": "token \(token)"]
     }
+    
+    static private var token =  Bundle.main.object(forInfoDictionaryKey: "PersonalAccessToken") as! String
 }

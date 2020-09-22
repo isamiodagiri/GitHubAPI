@@ -10,7 +10,18 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxOptional
 
+enum MultipleContents {
+    case item(userDetail: UserDetail)
+    
+    var userName: String? {
+        switch self {
+        case let .item(userDetail):
+            return userDetail.userName
+        }
+    }
+}
 
 struct SectionOfUserList {
     var header: String
@@ -19,7 +30,7 @@ struct SectionOfUserList {
 
 extension SectionOfUserList: SectionModelType {
 
-    typealias Item = UserDetail
+    typealias Item = MultipleContents
 
     init(original: SectionOfUserList, items: [SectionOfUserList.Item]) {
         self = original
@@ -30,28 +41,44 @@ extension SectionOfUserList: SectionModelType {
 class UserListViewModel {
 
     private let disposeBag = DisposeBag()
-
-    let items = BehaviorSubject<[SectionOfUserList]>(value: [])
-    let error = PublishSubject<Error>()
-    let selected = PublishSubject<String?>()
     
-    func fetchItem(at text: String = "") {
-        let keyword = text.isEmpty ? "swift" : text
+    let items = BehaviorSubject<[SectionOfUserList]>(value: [])
+    let error = PublishRelay<Error>()
+    let selected = PublishRelay<String?>()
+    var inputWord = PublishRelay<String?>()
         
+    init() {
+        setup()
+    }
+    
+    func setup() {
+        inputWord
+            .filterNil()
+            .subscribe(onNext: { [unowned self] response in
+                self.fetchItem(at: response)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func fetchItem(at keyword: String) {
         let request = ApiRequestUserList.get(keyword: keyword)
+
         ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
             guard let self = self,
-                let totalCount = response.totalCount,
+                let _ = response.totalCount,
                 let userDetail = response.userDetail else { return }
-
+            
             print("Response：\(response)")
-
-            let section = SectionOfUserList(header: "\(totalCount)件",
-                                            items: userDetail)
+            
+            let items = userDetail
+                .map { MultipleContents.item(userDetail: $0)}
+            
+            let section = SectionOfUserList(header: "検索ワード(言語)：\(keyword)",
+                                            items: items)
             self.items.onNext([section])
         }) { [weak self] error in
             print("Error：\(error)")
-            self?.error.onNext(error)
+            self?.error.accept(error)
         }
     }
     
@@ -60,6 +87,6 @@ class UserListViewModel {
         
         let items = list[indexPath.section].items
 
-        selected.onNext(items[indexPath.row].userName)
+        selected.accept(items[indexPath.row].userName)
     }
 }

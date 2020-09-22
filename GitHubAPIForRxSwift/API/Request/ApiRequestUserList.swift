@@ -27,11 +27,11 @@ enum ApiRequestUserList: BaseRequestProtocol {
 
     var parameters: Parameters? {
         switch self {
-        case .get(let keyword):
+        case let .get(keyword):
             return [
                 "q": "language:\(keyword)",
-                "page": 1,
-                "per_page": 50
+                "page": "1",
+                "per_page": "10000"
             ]
         }
     }
