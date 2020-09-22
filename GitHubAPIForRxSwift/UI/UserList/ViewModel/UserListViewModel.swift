@@ -58,7 +58,6 @@ class UserListViewModel {
     
     init() {
         setup()
-        print(UrlConfig.header)
     }
     
     func setup() {
@@ -107,7 +106,13 @@ class UserListViewModel {
                                             items: items)
             self.items.onNext([section])
         }) { [weak self] error in
+            guard let value = try? self?.items.value(), var list = value.first else { return }
+
             print("Error：\(error)")
+            let count = list.items.count - 1
+            list.items.remove(at: count)
+            self?.items.onNext([list])
+          
             self?.error.accept(error)
         }
     }
