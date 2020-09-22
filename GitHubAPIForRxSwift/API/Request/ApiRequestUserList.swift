@@ -29,7 +29,9 @@ enum ApiRequestUserList: BaseRequestProtocol {
         switch self {
         case let .get(keyword):
             return [
-                "q": "language:\(keyword)"
+                "q": "language:\(keyword)",
+                "page": "1",
+                "per_page": "10000"
             ]
         }
     }
