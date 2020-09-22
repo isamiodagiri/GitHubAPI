@@ -11,6 +11,19 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+enum MultipleContents {
+    case item(userDetail: UserDetail)
+    case footer
+    
+    var userName: String? {
+        switch self {
+        case let .item(userDetail):
+            return userDetail.userName
+        case .footer:
+            return nil
+        }
+    }
+}
 
 struct SectionOfUserList {
     var header: String
@@ -19,7 +32,7 @@ struct SectionOfUserList {
 
 extension SectionOfUserList: SectionModelType {
 
-    typealias Item = UserDetail
+    typealias Item = MultipleContents
 
     init(original: SectionOfUserList, items: [SectionOfUserList.Item]) {
         self = original
@@ -35,19 +48,29 @@ class UserListViewModel {
     let error = PublishSubject<Error>()
     let selected = PublishSubject<String?>()
     
-    func fetchItem(at text: String = "") {
+    init() {
+        self.fetchItem()
+    }
+    
+    func fetchItem(at text: String = "", number: Int = 1) {
         let keyword = text.isEmpty ? "swift" : text
         
-        let request = ApiRequestUserList.get(keyword: keyword)
+        let request = ApiRequestUserList.get(keyword: keyword, pageNumber: number)
         ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
             guard let self = self,
                 let totalCount = response.totalCount,
                 let userDetail = response.userDetail else { return }
-
+            
             print("Response：\(response)")
-
-            let section = SectionOfUserList(header: "\(totalCount)件",
-                                            items: userDetail)
+            
+            var items = userDetail
+                .map { MultipleContents.item(userDetail: $0)}
+            
+            if totalCount > userDetail.count {
+                items.append(MultipleContents.footer)
+            }
+            let section = SectionOfUserList(header: "検索ワード(言語)：\(keyword)",
+                                            items: items)
             self.items.onNext([section])
         }) { [weak self] error in
             print("Error：\(error)")

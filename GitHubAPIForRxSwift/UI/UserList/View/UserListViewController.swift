@@ -32,9 +32,7 @@ class UserListViewController: UIViewController {
     
     private func setupViewModel() {
         viewModel = UserListViewModel()
-        
-        viewModel?.fetchItem()
-        
+                
         viewModel?.items
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
@@ -72,7 +70,6 @@ class UserListViewController: UIViewController {
     }
     
     private func setupGesture() {
-        
         view.rx.panGesture()
             .when(.began)
             .subscribe(onNext: { _ in
@@ -116,24 +113,32 @@ extension UserListViewController: UISearchBarDelegate {
 extension UserListViewController: UITableViewDelegate {
     static func dataSource() -> RxTableViewSectionedReloadDataSource<SectionOfUserList> {
         return RxTableViewSectionedReloadDataSource(
-            configureCell: { dataSource, tableView, indexPath, userDetail -> UITableViewCell in
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
+            configureCell: { dataSource, tableView, indexPath, contents -> UITableViewCell in
+                switch contents {
+                case let .item(userDetail):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: UserListTableViewCell().className,
+                                                             for: indexPath)
+                    if let cell = cell as? UserListTableViewCell {
+                        cell.setup(imageUrl: userDetail.avatarUrl, name: userDetail.userName)
+                    }
+                    return cell
+
+                case .footer:
+                    return tableView.dequeueReusableCell(withIdentifier: FooterTableViewCell().className,
                                                          for: indexPath)
-                if let cell = cell as? UserListTableViewCell {
-                    cell.setup(imageUrl: userDetail.avatarUrl, name: userDetail.userName)
                 }
-                return cell
-                
         },
             titleForHeaderInSection: { dataSource, index -> String? in
             return dataSource.sectionModels[index].header
-            
         })
     }
     
     private func setupTableView() {
         tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: "cell")
+                           forCellReuseIdentifier: UserListTableViewCell().className)
+        
+        tableView.register(UINib(nibName: "FooterTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: FooterTableViewCell().className)
         
         tableView.delaysContentTouches = false
         
@@ -147,5 +152,10 @@ extension UserListViewController: UITableViewDelegate {
                 self.tableView.deselectRow(at: indexPath, animated: true)
             })
             .disposed(by: disposeBag)
+        
+        tableView.rx.willDisplayCell.subscribe(onNext: { (cell, indexPath) in
+            print("cell：\(cell)")
+            print("indexPath：\(indexPath)")
+            }).disposed(by: disposeBag)
     }
 }
