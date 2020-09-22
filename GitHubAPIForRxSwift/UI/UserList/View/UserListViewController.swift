@@ -63,7 +63,7 @@ class UserListViewController: UIViewController {
         let communicationAction = UIAlertAction(title: Localize.communicationErrorAction,
                                                 style: .default,
                                                 handler: { [weak self] _ in
-                                                    self?.viewModel?.fetchItem(at: self?.searchBar.text ?? "")
+                                                    self?.viewModel?.inputWord.accept(self?.searchBar.text)
         })
         alert.addAction(communicationAction)
         present(alert, animated: true, completion: nil)
@@ -100,10 +100,7 @@ extension UserListViewController: UISearchBarDelegate {
         .asDriver()
         .drive(onNext: { [unowned self] _ in
             self.searchBar.resignFirstResponder()
-
-            if let text = self.searchBar.text, !text.isEmpty {
-                self.viewModel?.fetchItem(at: text)
-            }
+            self.viewModel?.inputWord.accept(self.searchBar.text)
         })
         .disposed(by: disposeBag)
         
@@ -146,16 +143,19 @@ extension UserListViewController: UITableViewDelegate {
             .setDelegate(self)
             .disposed(by: disposeBag)
         
-        tableView.rx.itemSelected
+        tableView.rx
+            .itemSelected
             .subscribe(onNext: { [unowned self] indexPath in
                 self.viewModel?.getUserName(at: indexPath)
                 self.tableView.deselectRow(at: indexPath, animated: true)
             })
             .disposed(by: disposeBag)
         
-        tableView.rx.willDisplayCell.subscribe(onNext: { (cell, indexPath) in
-            print("cell：\(cell)")
-            print("indexPath：\(indexPath)")
-            }).disposed(by: disposeBag)
+        tableView.rx
+            .willDisplayCell
+            .subscribe(onNext: { [unowned self] _, indexPath in
+                self.viewModel?.checkAddFetchItem(number: indexPath.row)
+            })
+            .disposed(by: disposeBag)
     }
 }

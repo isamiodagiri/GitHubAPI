@@ -13,7 +13,7 @@ enum ApiRequestUserList: BaseRequestProtocol {
     
     typealias ResponseType = UserList
 
-    case get(keyword: String, pageNumber: Int)
+    case get(keyword: String, startNumber: Int, endNumber: Int)
 
     var method: HTTPMethod {
         switch self {
@@ -27,11 +27,11 @@ enum ApiRequestUserList: BaseRequestProtocol {
 
     var parameters: Parameters? {
         switch self {
-        case let .get(keyword, pageNumber):
+        case let .get(keyword, startNumber, endNumber):
             return [
                 "q": "language:\(keyword)",
-                "page": 1 * pageNumber,
-                "per_page": 50 * pageNumber
+                "page": startNumber,
+                "per_page": endNumber
             ]
         }
     }

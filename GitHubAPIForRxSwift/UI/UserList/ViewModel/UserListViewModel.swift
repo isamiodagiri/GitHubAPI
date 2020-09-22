@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxOptional
 
 enum MultipleContents {
     case item(userDetail: UserDetail)
@@ -44,18 +45,51 @@ class UserListViewModel {
 
     private let disposeBag = DisposeBag()
 
+    let minFetchCellCount = 1
+    let maxFetchCellCount = 50
+    
     let items = BehaviorSubject<[SectionOfUserList]>(value: [])
-    let error = PublishSubject<Error>()
-    let selected = PublishSubject<String?>()
+    let error = PublishRelay<Error>()
+    let selected = PublishRelay<String?>()
+    var inputWord = PublishRelay<String?>()
+    
+    var searchedWord = String()
+    var searchedCellCount = Int()
     
     init() {
-        self.fetchItem()
+        setup()
+        print(UrlConfig.header)
     }
     
-    func fetchItem(at text: String = "", number: Int = 1) {
-        let keyword = text.isEmpty ? "swift" : text
-        
-        let request = ApiRequestUserList.get(keyword: keyword, pageNumber: number)
+    func setup() {
+        inputWord
+            .filterNil()
+            .subscribe(onNext: { [unowned self] response in
+                if !self.searchedWord.contains(response) {
+                    self.searchedWord = response
+                    self.searchedCellCount = self.maxFetchCellCount
+                    
+                    self.fetchItem(at: self.searchedWord,
+                                   startNumber: self.minFetchCellCount,
+                                   endNumber: self.searchedCellCount)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func checkAddFetchItem(number: Int) {
+        if number == searchedCellCount {
+            searchedCellCount += number
+            let start = number + minFetchCellCount
+            fetchItem(at: searchedWord, startNumber: start, endNumber: searchedCellCount)
+        }
+    }
+    
+    private func fetchItem(at keyword: String, startNumber: Int, endNumber: Int) {
+        let request = ApiRequestUserList.get(keyword: keyword,
+                                             startNumber: startNumber,
+                                             endNumber: endNumber)
+
         ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
             guard let self = self,
                 let totalCount = response.totalCount,
@@ -74,7 +108,7 @@ class UserListViewModel {
             self.items.onNext([section])
         }) { [weak self] error in
             print("Error：\(error)")
-            self?.error.onNext(error)
+            self?.error.accept(error)
         }
     }
     
@@ -83,6 +117,6 @@ class UserListViewModel {
         
         let items = list[indexPath.section].items
 
-        selected.onNext(items[indexPath.row].userName)
+        selected.accept(items[indexPath.row].userName)
     }
 }
