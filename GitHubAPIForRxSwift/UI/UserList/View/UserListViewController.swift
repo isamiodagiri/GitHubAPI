@@ -119,10 +119,6 @@ extension UserListViewController: UITableViewDelegate {
                         cell.setup(imageUrl: userDetail.avatarUrl, name: userDetail.userName)
                     }
                     return cell
-
-                case .footer:
-                    return tableView.dequeueReusableCell(withIdentifier: FooterTableViewCell().className,
-                                                         for: indexPath)
                 }
         },
             titleForHeaderInSection: { dataSource, index -> String? in
@@ -133,10 +129,7 @@ extension UserListViewController: UITableViewDelegate {
     private func setupTableView() {
         tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
                            forCellReuseIdentifier: UserListTableViewCell().className)
-        
-        tableView.register(UINib(nibName: "FooterTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: FooterTableViewCell().className)
-        
+                
         tableView.delaysContentTouches = false
         
         tableView.rx
@@ -148,13 +141,6 @@ extension UserListViewController: UITableViewDelegate {
             .subscribe(onNext: { [unowned self] indexPath in
                 self.viewModel?.getUserName(at: indexPath)
                 self.tableView.deselectRow(at: indexPath, animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-        tableView.rx
-            .willDisplayCell
-            .subscribe(onNext: { [unowned self] _, indexPath in
-                self.viewModel?.checkAddFetchItem(number: indexPath.row)
             })
             .disposed(by: disposeBag)
     }
