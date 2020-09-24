@@ -1,0 +1,11 @@
+{
+  "commitish" : "3.0.3",
+  "iOS" : [
+    {
+      "hash" : "03d1f94d47c628c616aae7899c32e86b2de780464282e7da0829a3081d607465",
+      "name" : "RxGesture",
+      "linking" : "dynamic",
+      "swiftToolchainVersion" : "5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)"
+    }
+  ]
+}

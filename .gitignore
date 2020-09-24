@@ -1,5 +1,9 @@
-# Xcode (from gitignore.io)
+*.DS_Store
+# Xcode
+## Build generated
 build/
+DerivedData/
+## Various settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -8,18 +12,21 @@ build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata
-*.xccheckout
+xcuserdata/
+## Other
 *.moved-aside
-DerivedData
+*.xcuserstate
+## Obj-C/Swift specific
 *.hmap
 *.ipa
-*.xcuserstate
-
-# CocoaPod
-Pods/*
-
-# others
-*.swp
-!.gitkeep
-.DS_Store
+*.dSYM.zip
+*.dSYM
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+## Carthage
+Carthage/Checkouts
+!Carthage/Build
+Carthage/Build/*
+!Carthage/Build/*.version
+!Carthage/Build/iOS

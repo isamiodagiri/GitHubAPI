@@ -1,0 +1,11 @@
+framework module RxWebKit {
+  umbrella header "RxWebKit.h"
+
+  export *
+  module * { export * }
+}
+
+module RxWebKit.Swift {
+    header "RxWebKit-Swift.h"
+    requires objc
+}

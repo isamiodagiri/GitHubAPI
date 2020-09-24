@@ -1,0 +1,11 @@
+{
+  "commitish" : "1.1.0",
+  "iOS" : [
+    {
+      "hash" : "2051d71770b99b06d7819f0a9f93a9f040b947db01053561d6a085a4c0edbe1e",
+      "name" : "RxWebKit",
+      "linking" : "dynamic",
+      "swiftToolchainVersion" : "5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)"
+    }
+  ]
+}
