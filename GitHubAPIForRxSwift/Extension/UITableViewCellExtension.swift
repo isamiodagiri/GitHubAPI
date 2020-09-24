@@ -8,7 +8,9 @@
 
 import UIKit
 
-extension UITableViewCell {
+extension UITableViewCell: TargetedExtensionCompatible {}
+
+extension TargetedExtension where Base: UITableViewCell {
     var className: String {
         return String(describing: type(of: self))
     }

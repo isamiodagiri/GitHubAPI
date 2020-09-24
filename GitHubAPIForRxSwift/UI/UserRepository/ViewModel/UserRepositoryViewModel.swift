@@ -97,7 +97,9 @@ class UserRepositoryViewModel {
             print("Response：\(response)")
             self?.isFetchedRepository = true
             self?.isRepository.onNext(response.isEmpty)
-            let items = response.map { RepositoryContentsRepository.item(repository: $0) }
+            let items = response
+                .filter { !($0.isFork ?? false) }
+                .map { RepositoryContentsRepository.item(repository: $0) }
             let section = SectionOfRepository(header: "Repository",
                                               items: items)
             self?.items.onNext([section])

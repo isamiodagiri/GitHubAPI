@@ -141,7 +141,7 @@ extension UserListViewController: UITableViewDelegate {
             configureCell: { dataSource, tableView, indexPath, contents -> UITableViewCell in
                 switch contents {
                 case let .item(userDetail):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: UserListTableViewCell().className,
+                    let cell = tableView.dequeueReusableCell(withIdentifier: UserListTableViewCell().ex.className,
                                                              for: indexPath)
                     if let cell = cell as? UserListTableViewCell {
                         cell.setup(imageUrl: userDetail.avatarUrl, name: userDetail.userName)
@@ -156,7 +156,7 @@ extension UserListViewController: UITableViewDelegate {
     
     private func setupTableView() {
         tableView.register(UINib(nibName: "UserListTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: UserListTableViewCell().className)
+                           forCellReuseIdentifier: UserListTableViewCell().ex.className)
                 
         tableView.delaysContentTouches = false
         
