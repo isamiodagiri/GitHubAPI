@@ -29,6 +29,7 @@ class RepositoryTableViewCell: UITableViewCell {
         starCountLabel.text = starCount?.description
         languageLabel.text = language
         languageIconView.isHidden = language == nil
+        languageIconView.backgroundColor = UIColor.ex.languageColor(at: language)
     }
     
 }
