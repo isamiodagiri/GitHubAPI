@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import RxGesture
+import PKHUD
 
 class UserListViewController: UIViewController {
     
@@ -19,7 +20,6 @@ class UserListViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
     
-    private lazy var dataSource = UserListViewController.dataSource()
     private var viewModel: UserListViewModel?
 
     override func viewDidLoad() {
@@ -32,20 +32,34 @@ class UserListViewController: UIViewController {
     
     private func setupViewModel() {
         viewModel = UserListViewModel()
-                
-        viewModel?.items
-            .bind(to: tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
         
-        viewModel?.selected
-            .subscribe(onNext: { [unowned self] text in
-                self.transitionUserRepositoryView(name: text)
+        viewModel?.driverIsLoadStart
+            .drive(onNext: { _ in
+                HUD.show(.systemActivity)
             })
             .disposed(by: disposeBag)
         
-        viewModel?.error
-            .subscribe(onNext: { [unowned self] _ in
-                self.showErrorDialog()
+        viewModel?.driverIsLoadEnd
+            .drive(onNext: { _ in
+                HUD.hide()
+            })
+            .disposed(by: disposeBag)
+                
+        viewModel?.items
+            .bind(to: tableView.rx.items(dataSource: dataSource()))
+            .disposed(by: disposeBag)
+        
+        viewModel?.driverSelected
+            .drive(onNext: { [unowned self] in
+                self.transitionUserRepositoryView(name: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel?.driverError
+            .drive(onNext: { [unowned self] in
+                self.showErrorDialog($0.title,
+                                     $0.message,
+                                     $0.isFound)
             })
             .disposed(by: disposeBag)
     }
@@ -55,24 +69,37 @@ class UserListViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func showErrorDialog() {
-        let alert: UIAlertController = UIAlertController(title: Localize.communicationErrorTitle,
-                                                         message: Localize.communicationErrorMessege,
+    private func showErrorDialog(_ title: String, _ message: String, _ isFound: Bool) {
+        let alert: UIAlertController = UIAlertController(title: title,
+                                                         message: message,
                                                          preferredStyle:  .alert)
         
         let communicationAction = UIAlertAction(title: Localize.communicationErrorAction,
                                                 style: .default,
                                                 handler: { [weak self] _ in
-                                                    self?.viewModel?.inputWord.accept(self?.searchBar.text)
+                                                    self?.viewModel?.reloadInputWord(at: self?.searchBar.text)
         })
-        alert.addAction(communicationAction)
+        
+        let closeAction = UIAlertAction(title: Localize.closeAction,
+                                        style: .cancel,
+                                        handler: {  _ in
+                                            HUD.hide()
+        })
+        
+        if isFound {
+            alert.addAction(closeAction)
+        } else {
+            alert.addAction(communicationAction)
+        }
+        
         present(alert, animated: true, completion: nil)
     }
     
     private func setupGesture() {
         view.rx.panGesture()
             .when(.began)
-            .subscribe(onNext: { _ in
+            .asDriver(onErrorDriveWith: Driver.empty())
+            .drive(onNext: { _ in
                 if self.searchBar.searchTextField.isEditing {
                     self.view.endEditing(true)
                 }
@@ -81,7 +108,8 @@ class UserListViewController: UIViewController {
         
         navigationController?.navigationBar.rx.tapGesture()
             .when(.recognized)
-            .subscribe(onNext: { _ in
+            .asDriver(onErrorDriveWith: Driver.empty())
+            .drive(onNext: { _ in
                 if self.searchBar.searchTextField.isEditing {
                     self.view.endEditing(true)
                 }
@@ -100,7 +128,7 @@ extension UserListViewController: UISearchBarDelegate {
         .asDriver()
         .drive(onNext: { [unowned self] _ in
             self.searchBar.resignFirstResponder()
-            self.viewModel?.inputWord.accept(self.searchBar.text)
+            self.viewModel?.setInputWord(at: self.searchBar.text)
         })
         .disposed(by: disposeBag)
         
@@ -108,7 +136,7 @@ extension UserListViewController: UISearchBarDelegate {
 }
 
 extension UserListViewController: UITableViewDelegate {
-    static func dataSource() -> RxTableViewSectionedReloadDataSource<SectionOfUserList> {
+    private func dataSource() -> RxTableViewSectionedReloadDataSource<SectionOfUserList> {
         return RxTableViewSectionedReloadDataSource(
             configureCell: { dataSource, tableView, indexPath, contents -> UITableViewCell in
                 switch contents {

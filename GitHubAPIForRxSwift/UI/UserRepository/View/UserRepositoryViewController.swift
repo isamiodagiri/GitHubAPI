@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxOptional
+import PKHUD
 
 class UserRepositoryViewController: UIViewController {
 
@@ -19,15 +21,15 @@ class UserRepositoryViewController: UIViewController {
         return vc
     }
     
+    @IBOutlet weak var userView: UIView!
     @IBOutlet weak private var userFullNameLabel: UILabel!
     @IBOutlet weak private var userNameLabel: UILabel!
     @IBOutlet weak private var userIconImageView: UIImageView!
     @IBOutlet weak private var followersCountLabel: UILabel!
     @IBOutlet weak private var followingCountLabel: UILabel!
     @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var noRepositoryView: UIView!
     
-    private lazy var dataSource = UserRepositoryViewController.dataSource()
-
     private let disposeBag = DisposeBag()
 
     private var viewModel: UserRepositoryViewModel?
@@ -36,39 +38,52 @@ class UserRepositoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        HUD.show(.systemActivity)
         setupTableView()
         setupViewModel()
     }
     
     private func setupViewModel() {
         viewModel = UserRepositoryViewModel(userName: userName)
-        
-        viewModel?.fetchUserData()
-        viewModel?.fetchUserRepository()
-        
-        viewModel?.userData
-            .subscribe(onNext: { [unowned self] response in
-                self.setupUserAcountView(at: response.userFullName,
-                                         at: response.userName,
-                                         at: response.avatarUrl,
-                                         at: response.followersCount?.description,
-                                         at: response.followingCount?.description)
+
+        viewModel?.driverUserData
+            .drive(onNext: { [unowned self] in
+                self.userView.isHidden = false
+                self.userFullNameLabel.text = $0.userFullName
+                self.userNameLabel.text = $0.userName
+                self.userIconImageView.ex.loadUrl(imageUrl: $0.avatarUrl,
+                                                  processorOption: .resizeCircle)
+                self.followersCountLabel.text = $0.followersCount?.description
+                self.followingCountLabel.text = $0.followingCount?.description
             })
             .disposed(by: disposeBag)
         
         viewModel?.items
-            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .bind(to: tableView.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)
         
-        viewModel?.selected
-            .subscribe(onNext: {[unowned self] response in
-                self.transitionWebView(url: response)
+        viewModel?.driverSelected
+            .drive(onNext: { [unowned self] in
+                self.transitionWebView(url: $0)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel?.driverIsRepository
+            .drive(onNext: { [unowned self] in
+                self.tableView.isHidden = $0
+                self.noRepositoryView.isHidden = !$0
             })
             .disposed(by: disposeBag)
         
-        viewModel?.error
-            .subscribe(onNext: { [unowned self] flag in
-                self.showErrorDialog(isUserData: flag)
+        viewModel?.driverError
+            .drive(onNext: { [unowned self] in
+                self.showErrorDialog(state: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel?.driverIsLoadEnd
+            .drive(onNext: { _ in
+                HUD.hide()
             })
             .disposed(by: disposeBag)
     }
@@ -78,60 +93,64 @@ class UserRepositoryViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func setupUserAcountView(at fullName: String?,
-                             at name: String?,
-                             at iconUrl: String?,
-                             at followersCount: String?,
-                             at followingCount: String?) {
-        userFullNameLabel.text = fullName
-        userNameLabel.text = name
-        userIconImageView.ex.loadUrl(imageUrl: iconUrl,
-                                     processorOption: .resizeCircle)
-        followersCountLabel.text = followersCount
-        followingCountLabel.text = followingCount
-    }
-    
-    private func showErrorDialog(isUserData: Bool) {
+    private func showErrorDialog(state: FechedDataState) {
         let alert: UIAlertController = UIAlertController(title: Localize.communicationErrorTitle,
-                                                         message: Localize.communicationErrorMessege,
-                                                         preferredStyle:  .alert)
+                                                         message: Localize.communicationErrorMessage,
+                                                         preferredStyle: .alert)
         
         let communicationAction = UIAlertAction(title: Localize.communicationErrorAction,
                                                 style: .default,
                                                 handler: { [weak self] _ in
-                                                    if isUserData {
+                                                    switch state {
+                                                    case.unfinished:
                                                         self?.viewModel?.fetchUserData()
-                                                    } else {
+                                                        self?.viewModel?.fetchUserRepository()
+                                                    case.userData:
+                                                        self?.viewModel?.fetchUserData()
+                                                    case.repository:
                                                         self?.viewModel?.fetchUserRepository()
                                                     }
         })
+        
+        let backViewAction = UIAlertAction(title: Localize.backViewAction,
+                                           style: .cancel,
+                                           handler: { [weak self] _ in
+                                            HUD.hide()
+                                            self?.navigationController?.popViewController(animated: true)
+        })
+
         alert.addAction(communicationAction)
+        alert.addAction(backViewAction)
         present(alert, animated: true, completion: nil)
     }
 }
 
-extension UserRepositoryViewController: UITableViewDelegate {
-    static func dataSource() -> RxTableViewSectionedReloadDataSource<SectionOfRepository> {
+extension UserRepositoryViewController {
+    private func dataSource() -> RxTableViewSectionedReloadDataSource<SectionOfRepository> {
         return RxTableViewSectionedReloadDataSource(
-            configureCell: { dataSource, tableView, indexPath, repositoryData -> UITableViewCell in
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
-                                                         for: indexPath)
-               
-                if let cell = cell as? RepositoryTableViewCell {
-                    cell.setup(repositoryName: repositoryData.repositoryName,
-                               discription: repositoryData.description,
-                               starCount: repositoryData.stargazersCount,
-                               language: repositoryData.language)
+            configureCell: { dataSource, tableView, indexPath, contents -> UITableViewCell in
+                switch contents {
+                case let .item(repository):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
+                                                             for: indexPath)
+                    
+                    if let cell = cell as? RepositoryTableViewCell {
+                        cell.setup(repositoryName: repository.repositoryName,
+                                   discription: repository.description,
+                                   starCount: repository.stargazersCount,
+                                   language: repository.language)
+                    }
+                    
+                    return cell
                 }
-                return cell
-                
         },
             titleForHeaderInSection: { dataSource, index -> String? in
             return dataSource.sectionModels[index].header
-            
         })
     }
-    
+}
+
+extension UserRepositoryViewController: UITableViewDelegate {
     private func setupTableView() {
         tableView.register(UINib(nibName: "RepositoryTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "cell")
