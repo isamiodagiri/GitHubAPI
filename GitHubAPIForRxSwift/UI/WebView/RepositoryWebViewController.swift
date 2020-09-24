@@ -11,6 +11,7 @@ import WebKit
 import RxWebKit
 import RxSwift
 import RxCocoa
+import RxOptional
 
 class RepositoryWebViewController: UIViewController {
     
@@ -37,29 +38,29 @@ class RepositoryWebViewController: UIViewController {
     
     private func setupBarButton() {
         forwardButton.rx.tap
-            .share(replay: 1)
-            .subscribe(onNext: { [unowned self] in
+            .asDriver()
+            .drive(onNext: { [unowned self] in
                 self.webView.goForward()
             })
             .disposed(by: disposeBag)
         
         backButton.rx.tap
-            .share(replay: 1)
-            .subscribe(onNext: { [unowned self] in
+            .asDriver()
+            .drive(onNext: { [unowned self] in
                 self.webView.goBack()
             })
             .disposed(by: disposeBag)
         
         shareButton.rx.tap
-            .share(replay: 1)
-            .subscribe(onNext: { [unowned self] in
+            .asDriver()
+            .drive(onNext: { [unowned self] in
                 self.showSharedSheet()
             })
             .disposed(by: disposeBag)
         
         stopButton.rx.tap
-            .share(replay: 1)
-            .subscribe(onNext: { [unowned self] in
+            .asDriver()
+            .drive(onNext: { [unowned self] in
                 self.webView.stopLoading()
             })
             .disposed(by: disposeBag)
@@ -83,7 +84,7 @@ class RepositoryWebViewController: UIViewController {
     
     private func showErrorDialog() {
         let alert: UIAlertController = UIAlertController(title: Localize.communicationErrorTitle,
-                                                         message: Localize.communicationErrorMessege,
+                                                         message: Localize.communicationErrorMessage,
                                                          preferredStyle:  .alert)
         
         let reloadAction = UIAlertAction(title: Localize.reloadAction,
@@ -114,36 +115,37 @@ extension RepositoryWebViewController: WKNavigationDelegate {
         loadingWebView()
         
         webView.rx.canGoBack
-            .share(replay: 1)
-            .subscribe(onNext: { [unowned self] in
+            .asDriver(onErrorDriveWith: Driver.empty())
+            .drive(onNext: { [unowned self] in
                 self.backButton.isEnabled = $0
             })
             .disposed(by: disposeBag)
 
         webView.rx.canGoForward
-            .share(replay: 1)
-            .subscribe(onNext: { [unowned self] in
+            .asDriver(onErrorDriveWith: Driver.empty())
+            .drive(onNext: { [unowned self] in
                 self.forwardButton.isEnabled = $0
             })
             .disposed(by: disposeBag)
         
         webView.rx.loading
-            .share(replay: 1)
-            .subscribe(onNext: { [unowned self] in
+            .asDriver(onErrorDriveWith: Driver.empty())
+            .drive(onNext: { [unowned self] in
                 self.stopButton.isEnabled = $0
             })
             .disposed(by: disposeBag)
-        
+
         webView.rx.title
-            .filter {$0 != nil }
-            .bind { [unowned self] response in
-                self.title = response
+            .filterNil()
+            .bind { [unowned self] in
+                self.title = $0
             }
             .disposed(by: disposeBag)
         
         webView.rx
             .didFailProvisionalNavigation
-            .subscribe(onNext: { [unowned self] _, _, _ in
+            .asDriver()
+            .drive(onNext: { [unowned self] _, _, _ in
                 self.showErrorDialog()
             })
             .disposed(by: disposeBag)

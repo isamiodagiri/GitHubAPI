@@ -12,7 +12,7 @@ import ObjectMapper
 import RxSwift
 
 class ApiCliant {
-    private static let successRange = 200..<400
+    private static let successRange = 200..<500
     private static let contentType = ["application/json"]
     
     static func call<T, V>(_ request: T, _ disposeBag: DisposeBag,
