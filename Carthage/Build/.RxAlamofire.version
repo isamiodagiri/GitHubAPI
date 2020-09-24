@@ -1,0 +1,11 @@
+{
+  "commitish" : "v5.6.1",
+  "iOS" : [
+    {
+      "hash" : "a525d1002824e59cdab8c6c19622566772562c0c967dc83680b348ee426c5ce4",
+      "name" : "RxAlamofire",
+      "linking" : "dynamic",
+      "swiftToolchainVersion" : "5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)"
+    }
+  ]
+}
