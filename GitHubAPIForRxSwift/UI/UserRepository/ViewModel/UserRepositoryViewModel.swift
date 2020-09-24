@@ -10,7 +10,24 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxOptional
 
+enum RepositoryContentsRepository {
+    case item(repository: Repository)
+    
+    var repositoryUrl: String? {
+        switch self {
+        case let .item(repository):
+            return repository.repositoryUrl
+        }
+    }
+}
+
+enum FechedDataState {
+    case userData
+    case repository
+    case unfinished
+}
 
 struct SectionOfRepository {
     var header: String
@@ -19,7 +36,7 @@ struct SectionOfRepository {
 
 extension SectionOfRepository: SectionModelType {
 
-    typealias Item = Repository
+    typealias Item = RepositoryContentsRepository
 
     init(original: SectionOfRepository, items: [SectionOfRepository.Item]) {
         self = original
@@ -32,14 +49,24 @@ class UserRepositoryViewModel {
     private let disposeBag = DisposeBag()
 
     let items = BehaviorSubject<[SectionOfRepository]>(value: [])
-    let error = PublishSubject<Bool>()
+    let error = PublishSubject<FechedDataState>()
     let userData = PublishSubject<User>()
     let selected = PublishSubject<String?>()
-
+    let isRepository = PublishSubject<Bool>()
+    
+    lazy var driverError: Driver<FechedDataState> = self.error.asDriver(onErrorDriveWith: Driver.empty())
+    lazy var driverUserData: Driver<User> = self.userData.asDriver(onErrorDriveWith: Driver.empty())
+    lazy var driverSelected: Driver<String?> = self.selected.asDriver(onErrorDriveWith: Driver.empty())
+    lazy var driverIsRepository: Driver<Bool> = self.isRepository.asDriver(onErrorDriveWith: Driver.empty())
+    
     private var userName: String?
+    var isFetchedUserData = Bool()
+    var isFetchedRepository = Bool()
 
     init(userName: String?) {
         self.userName = userName
+        fetchUserData()
+        fetchUserRepository()
     }
 
     func fetchUserData() {
@@ -50,7 +77,11 @@ class UserRepositoryViewModel {
             self?.userData.onNext(response)
         }) { [weak self] error in
             print("Error：\(error)")
-            self?.error.onNext(true)
+            if !(self?.isFetchedRepository ?? false) {
+                self?.error.onNext(.unfinished)
+            } else {
+                self?.error.onNext(.userData)
+            }
         }
     }
     
@@ -59,12 +90,20 @@ class UserRepositoryViewModel {
         ApiCliant.callToArray(request, disposeBag, onSuccess: { [weak self] response in
             print("Response：\(response)")
             
+            self?.isRepository.onNext(response.isEmpty)
+            
+            let items = response.map { RepositoryContentsRepository.item(repository: $0) }
+            
             let section = SectionOfRepository(header: "Repository",
-                                              items: response)
+                                              items: items)
             self?.items.onNext([section])
         }) { [weak self] error in
             print("Error：\(error)")
-            self?.error.onNext(false)
+            if !(self?.isFetchedUserData ?? false) {
+                self?.error.onNext(.unfinished)
+            } else {
+                self?.error.onNext(.repository)
+            }
         }
     }
     

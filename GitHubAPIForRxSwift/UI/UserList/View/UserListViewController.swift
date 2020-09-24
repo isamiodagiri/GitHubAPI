@@ -44,8 +44,10 @@ class UserListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel?.error
-            .subscribe(onNext: { [unowned self] _ in
-                self.showErrorDialog()
+            .subscribe(onNext: { [unowned self] response in
+                self.showErrorDialog(response.title,
+                                     response.message,
+                                     response.isFound)
             })
             .disposed(by: disposeBag)
     }
@@ -55,9 +57,9 @@ class UserListViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func showErrorDialog() {
-        let alert: UIAlertController = UIAlertController(title: Localize.communicationErrorTitle,
-                                                         message: Localize.communicationErrorMessege,
+    private func showErrorDialog(_ title: String, _ message: String, _ isFound: Bool) {
+        let alert: UIAlertController = UIAlertController(title: title,
+                                                         message: message,
                                                          preferredStyle:  .alert)
         
         let communicationAction = UIAlertAction(title: Localize.communicationErrorAction,
@@ -65,6 +67,17 @@ class UserListViewController: UIViewController {
                                                 handler: { [weak self] _ in
                                                     self?.viewModel?.inputWord.accept(self?.searchBar.text)
         })
+        
+        let closeAction = UIAlertAction(title: Localize.closeAction,
+                                        style: .cancel,
+                                        handler: nil)
+        
+        if isFound {
+            alert.addAction(closeAction)
+        } else {
+            alert.addAction(communicationAction)
+        }
+        
         alert.addAction(communicationAction)
         present(alert, animated: true, completion: nil)
     }

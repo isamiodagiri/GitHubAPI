@@ -43,12 +43,13 @@ class UserListViewModel {
     private let disposeBag = DisposeBag()
     
     let items = BehaviorSubject<[SectionOfUserList]>(value: [])
-    let error = PublishRelay<Error>()
+    let error = PublishRelay<(title: String, message: String, isFound: Bool)>()
     let selected = PublishRelay<String?>()
     var inputWord = PublishRelay<String?>()
         
     init() {
         setup()
+        inputWord.accept("swift")
     }
     
     func setup() {
@@ -60,33 +61,39 @@ class UserListViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func fetchItem(at keyword: String) {
-        let request = ApiRequestUserList.get(keyword: keyword)
-
-        ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
-            guard let self = self,
-                let _ = response.totalCount,
-                let userDetail = response.userDetail else { return }
-            
-            print("Response：\(response)")
-            
-            let items = userDetail
-                .map { MultipleContents.item(userDetail: $0)}
-            
-            let section = SectionOfUserList(header: "検索ワード(言語)：\(keyword)",
-                                            items: items)
-            self.items.onNext([section])
-        }) { [weak self] error in
-            print("Error：\(error)")
-            self?.error.accept(error)
-        }
-    }
-    
     func getUserName(at indexPath: IndexPath) {
         guard let list = try? items.value() else { return }
         
         let items = list[indexPath.section].items
 
         selected.accept(items[indexPath.row].userName)
+    }
+    
+    private func fetchItem(at keyword: String) {
+        let request = ApiRequestUserList.get(keyword: keyword)
+
+        ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
+            print("Response：\(response)")
+
+            guard let _ = response.totalCount,
+                let userDetail = response.userDetail else {
+                    self?.error.accept((Localize.searchedNotResponseTitle,
+                                        Localize.searchedNotResponseMessage,
+                                        true))
+                    return
+            }
+            
+            let items = userDetail
+                .map { MultipleContents.item(userDetail: $0)}
+            
+            let section = SectionOfUserList(header: "現在の検索ワード(言語)：\(keyword)",
+                                            items: items)
+            self?.items.onNext([section])
+        }) { [weak self] error in
+            print("Error：\(error)")
+            self?.error.accept((Localize.communicationErrorTitle,
+                                Localize.communicationErrorMessage,
+                                false))
+        }
     }
 }
