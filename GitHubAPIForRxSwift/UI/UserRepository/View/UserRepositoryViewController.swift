@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxOptional
+import PKHUD
 
 class UserRepositoryViewController: UIViewController {
 
@@ -26,7 +28,7 @@ class UserRepositoryViewController: UIViewController {
     @IBOutlet weak private var followersCountLabel: UILabel!
     @IBOutlet weak private var followingCountLabel: UILabel!
     @IBOutlet weak private var tableView: UITableView!
-    @IBOutlet weak var noRepositoryView: UIView!
+    @IBOutlet weak private var noRepositoryView: UIView!
     
     private let disposeBag = DisposeBag()
 
@@ -36,6 +38,7 @@ class UserRepositoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        HUD.show(.systemActivity)
         setupTableView()
         setupViewModel()
     }
@@ -77,6 +80,12 @@ class UserRepositoryViewController: UIViewController {
                 self.showErrorDialog(state: $0)
             })
             .disposed(by: disposeBag)
+        
+        viewModel?.driverIsLoadEnd
+            .drive(onNext: { _ in
+                HUD.hide()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func transitionWebView(url acceseUrl: String?) {
@@ -106,6 +115,7 @@ class UserRepositoryViewController: UIViewController {
         let backViewAction = UIAlertAction(title: Localize.backViewAction,
                                            style: .cancel,
                                            handler: { [weak self] _ in
+                                            HUD.hide()
                                             self?.navigationController?.popViewController(animated: true)
         })
 
@@ -116,7 +126,7 @@ class UserRepositoryViewController: UIViewController {
 }
 
 extension UserRepositoryViewController {
-    func dataSource() -> RxTableViewSectionedReloadDataSource<SectionOfRepository> {
+    private func dataSource() -> RxTableViewSectionedReloadDataSource<SectionOfRepository> {
         return RxTableViewSectionedReloadDataSource(
             configureCell: { dataSource, tableView, indexPath, contents -> UITableViewCell in
                 switch contents {

@@ -48,20 +48,23 @@ class UserRepositoryViewModel {
 
     private let disposeBag = DisposeBag()
 
-    let items = BehaviorSubject<[SectionOfRepository]>(value: [])
-    let error = PublishSubject<FechedDataState>()
-    let userData = PublishSubject<User>()
-    let selected = PublishSubject<String?>()
-    let isRepository = PublishSubject<Bool>()
-    
+    private let error = PublishSubject<FechedDataState>()
+    private let userData = PublishSubject<User>()
+    private let selected = PublishSubject<String?>()
+    private let isRepository = PublishSubject<Bool>()
+    private let isLoadEnd = PublishSubject<Bool>()
+
     lazy var driverError: Driver<FechedDataState> = self.error.asDriver(onErrorDriveWith: Driver.empty())
     lazy var driverUserData: Driver<User> = self.userData.asDriver(onErrorDriveWith: Driver.empty())
     lazy var driverSelected: Driver<String?> = self.selected.asDriver(onErrorDriveWith: Driver.empty())
     lazy var driverIsRepository: Driver<Bool> = self.isRepository.asDriver(onErrorDriveWith: Driver.empty())
-    
+    lazy var driverIsLoadEnd: Driver<Bool> = self.isLoadEnd.asDriver(onErrorDriveWith: Driver.empty())
+
     private var userName: String?
-    var isFetchedUserData = Bool()
-    var isFetchedRepository = Bool()
+    private var isFetchedUserData = Bool()
+    private var isFetchedRepository = Bool()
+
+    let items = BehaviorSubject<[SectionOfRepository]>(value: [])
 
     init(userName: String?) {
         self.userName = userName
@@ -73,8 +76,11 @@ class UserRepositoryViewModel {
         let request = ApiRequestUserData.path(userName: self.userName ?? "")
         ApiCliant.call(request, disposeBag, onSuccess: { [weak self] response in
             print("Response：\(response)")
-            
+            self?.isFetchedUserData = true
             self?.userData.onNext(response)
+            if (self?.isFetchedRepository ?? false) {
+                self?.isLoadEnd.onNext(true)
+            }
         }) { [weak self] error in
             print("Error：\(error)")
             if !(self?.isFetchedRepository ?? false) {
@@ -89,14 +95,15 @@ class UserRepositoryViewModel {
         let request = ApiRequestUserRepository.path(userName: self.userName ?? "")
         ApiCliant.callToArray(request, disposeBag, onSuccess: { [weak self] response in
             print("Response：\(response)")
-            
+            self?.isFetchedRepository = true
             self?.isRepository.onNext(response.isEmpty)
-            
             let items = response.map { RepositoryContentsRepository.item(repository: $0) }
-            
             let section = SectionOfRepository(header: "Repository",
                                               items: items)
             self?.items.onNext([section])
+            if (self?.isFetchedUserData ?? false) {
+                self?.isLoadEnd.onNext(true)
+            }
         }) { [weak self] error in
             print("Error：\(error)")
             if !(self?.isFetchedUserData ?? false) {

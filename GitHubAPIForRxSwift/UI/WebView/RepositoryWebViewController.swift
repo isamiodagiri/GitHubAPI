@@ -107,7 +107,6 @@ class RepositoryWebViewController: UIViewController {
 }
 
 extension RepositoryWebViewController: WKNavigationDelegate {
-        
     private func setupWebView() {
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
