@@ -23,7 +23,7 @@ enum ApiRequestUserData: BaseRequestProtocol {
 
     var path: String {
         switch self {
-        case .path(let userName):
+        case let .path(userName):
             return "users/\(userName)"
         }
     }

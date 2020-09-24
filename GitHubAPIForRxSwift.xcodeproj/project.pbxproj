@@ -14,6 +14,8 @@
 		572A9082250BD4CE002697DD /* GitHubAPIForRxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A9081250BD4CE002697DD /* GitHubAPIForRxSwiftTests.swift */; };
 		572A908D250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A908C250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift */; };
 		572B37FE25184C5C00C3339E /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B37FD25184C5C00C3339E /* Localize.swift */; };
+		572B38062519711900C3339E /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B38052519711900C3339E /* UITableViewCellExtension.swift */; };
+		572B38082519E35100C3339E /* RxOptional.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572B38072519E35100C3339E /* RxOptional.framework */; };
 		5751488D250D053600766015 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5751488C250D053600766015 /* RxDataSources.framework */; };
 		57514891250D055D00766015 /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514890250D055D00766015 /* RxAlamofire.framework */; };
 		57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57514896250D058E00766015 /* ObjectMapper.framework */; };
@@ -30,11 +32,10 @@
 		575148C1250E41CE00766015 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575148C0250E41CE00766015 /* UserRepository.swift */; };
 		575148C5250E457B00766015 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575148C4250E457B00766015 /* Nuke.framework */; };
 		5779986C2515EC58005B7F95 /* RxWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; };
-		5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5779986B2515EC58005B7F95 /* RxWebKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		577998722517B4FC005B7F95 /* RxGesture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577998712517B4FC005B7F95 /* RxGesture.framework */; };
-		577998732517B4FC005B7F95 /* RxGesture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 577998712517B4FC005B7F95 /* RxGesture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		577998752517B50A005B7F95 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577998742517B50A005B7F95 /* PKHUD.framework */; };
-		577998762517B50A005B7F95 /* PKHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 577998742517B50A005B7F95 /* PKHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57B45B9A251C55B900C2689E /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57B45B99251C55B900C2689E /* ColorAssets.xcassets */; };
+		57B45B9C251C56FE00C2689E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B45B9B251C56FE00C2689E /* UIColorExtension.swift */; };
 		57DE265F250F9A7B00EEA247 /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */; };
 		57DE2662250FA34F00EEA247 /* TargetedExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2661250FA34F00EEA247 /* TargetedExtension.swift */; };
 		57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DE2666250FA83000EEA247 /* ApiClient.swift */; };
@@ -70,22 +71,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		5779986E2515EC58005B7F95 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				577998762517B50A005B7F95 /* PKHUD.framework in Embed Frameworks */,
-				577998732517B4FC005B7F95 /* RxGesture.framework in Embed Frameworks */,
-				5779986D2515EC58005B7F95 /* RxWebKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		572A9067250BD4CA002697DD /* GitHubAPIForRxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubAPIForRxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		572A906A250BD4CA002697DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +85,8 @@
 		572A908C250BD4CE002697DD /* GitHubAPIForRxSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIForRxSwiftUITests.swift; sourceTree = "<group>"; };
 		572A908E250BD4CE002697DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		572B37FD25184C5C00C3339E /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
+		572B38052519711900C3339E /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
+		572B38072519E35100C3339E /* RxOptional.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxOptional.framework; path = Carthage/Build/iOS/RxOptional.framework; sourceTree = "<group>"; };
 		5751488C250D053600766015 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		57514890250D055D00766015 /* RxAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAlamofire.framework; path = Carthage/Build/iOS/RxAlamofire.framework; sourceTree = "<group>"; };
 		57514893250D057D00766015 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
@@ -121,6 +108,8 @@
 		5779986B2515EC58005B7F95 /* RxWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxWebKit.framework; path = Carthage/Build/iOS/RxWebKit.framework; sourceTree = "<group>"; };
 		577998712517B4FC005B7F95 /* RxGesture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGesture.framework; path = Carthage/Build/iOS/RxGesture.framework; sourceTree = "<group>"; };
 		577998742517B50A005B7F95 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
+		57B45B99251C55B900C2689E /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
+		57B45B9B251C56FE00C2689E /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
 		57DE2661250FA34F00EEA247 /* TargetedExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetedExtension.swift; sourceTree = "<group>"; };
 		57DE2666250FA83000EEA247 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
@@ -150,6 +139,7 @@
 				575148A3250D05CE00766015 /* RxSwift.framework in Frameworks */,
 				57514897250D058E00766015 /* ObjectMapper.framework in Frameworks */,
 				5751489A250D059E00766015 /* Alamofire.framework in Frameworks */,
+				572B38082519E35100C3339E /* RxOptional.framework in Frameworks */,
 				57514891250D055D00766015 /* RxAlamofire.framework in Frameworks */,
 				5779986C2515EC58005B7F95 /* RxWebKit.framework in Frameworks */,
 				575148C5250E457B00766015 /* Nuke.framework in Frameworks */,
@@ -201,11 +191,11 @@
 			children = (
 				572B37FC25184B9700C3339E /* Localize */,
 				57DE267B251195CE00EEA247 /* API */,
-				57DE2660250FA1C700EEA247 /* Common */,
 				57DE265D250F99E300EEA247 /* Extension */,
 				575148A9250E394300766015 /* UI */,
 				572A906A250BD4CA002697DD /* AppDelegate.swift */,
 				572A906C250BD4CA002697DD /* SceneDelegate.swift */,
+				57B45B99251C55B900C2689E /* ColorAssets.xcassets */,
 				572A9073250BD4CD002697DD /* Assets.xcassets */,
 				572A9075250BD4CD002697DD /* LaunchScreen.storyboard */,
 				572A9078250BD4CD002697DD /* Info.plist */,
@@ -242,6 +232,7 @@
 		5751488B250D053500766015 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				572B38072519E35100C3339E /* RxOptional.framework */,
 				577998742517B50A005B7F95 /* PKHUD.framework */,
 				577998712517B4FC005B7F95 /* RxGesture.framework */,
 				5779986B2515EC58005B7F95 /* RxWebKit.framework */,
@@ -347,15 +338,10 @@
 			children = (
 				57DE265E250F9A7B00EEA247 /* ImageViewExtension.swift */,
 				57DE2661250FA34F00EEA247 /* TargetedExtension.swift */,
+				572B38052519711900C3339E /* UITableViewCellExtension.swift */,
+				57B45B9B251C56FE00C2689E /* UIColorExtension.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		57DE2660250FA1C700EEA247 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		57DE2665250FA82000EEA247 /* Client */ = {
@@ -433,7 +419,6 @@
 				572A9064250BD4CA002697DD /* Frameworks */,
 				572A9065250BD4CA002697DD /* Resources */,
 				575148A8250D05F800766015 /* Carthage Script */,
-				5779986E2515EC58005B7F95 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -531,6 +516,7 @@
 			files = (
 				57DE266D2510290400EEA247 /* UserListTableViewCell.xib in Resources */,
 				572A9077250BD4CD002697DD /* LaunchScreen.storyboard in Resources */,
+				57B45B9A251C55B900C2689E /* ColorAssets.xcassets in Resources */,
 				575148B5250E3B3100766015 /* UserRepositoryView.xib in Resources */,
 				57DE26712510293C00EEA247 /* RepositoryTableViewCell.xib in Resources */,
 				57DE26882515C28800EEA247 /* RepositoryWebView.xib in Resources */,
@@ -576,6 +562,7 @@
 				"$(SRCROOT)/carthage/Build/iOS/RxWebKit.framework",
 				"$(SRCROOT)/carthage/Build/iOS/RxGesture.framework",
 				"$(SRCROOT)/carthage/Build/iOS/PKHUD.framework",
+				"$(SRCROOT)/carthage/Build/iOS/RxOptional.framework",
 			);
 			name = "Carthage Script";
 			outputFileListPaths = (
@@ -632,7 +619,9 @@
 				575148B9250E3BEB00766015 /* UserRepositoryViewController.swift in Sources */,
 				57DE2667250FA83000EEA247 /* ApiClient.swift in Sources */,
 				57DE267F25119D5F00EEA247 /* BaseApiRequestProtocol.swift in Sources */,
+				57B45B9C251C56FE00C2689E /* UIColorExtension.swift in Sources */,
 				57DE26852513101F00EEA247 /* ApiRequestUserRepository.swift in Sources */,
+				572B38062519711900C3339E /* UITableViewCellExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

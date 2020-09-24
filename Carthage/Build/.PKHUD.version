@@ -1,0 +1,11 @@
+{
+  "commitish" : "5.4.0",
+  "iOS" : [
+    {
+      "hash" : "82db9b78e3fcd9782ae183f8f48c6c1aab66b930decaabe11d50435c0bf2a876",
+      "name" : "PKHUD",
+      "linking" : "dynamic",
+      "swiftToolchainVersion" : "5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)"
+    }
+  ]
+}
